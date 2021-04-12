@@ -10,6 +10,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { SidebarComponent } from './components/navigation/sidebar/sidebar.component';
 import { RegistrationComponent } from './components/user-management/registration/registration.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { LoginComponent } from './components/user-management/login/login.component';
@@ -29,7 +30,8 @@ import { LoginComponent } from './components/user-management/login/login.compone
     MatFormFieldModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatIconModule
+    MatIconModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

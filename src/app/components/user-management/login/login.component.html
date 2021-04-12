@@ -1,1 +1,16 @@
-<p>login works!</p>
+<div class="login-wrapper mx-auto d-flex flex-column justify-content-center mt-5">
+    <h1 class="mat-title mx-auto mt-3">Login</h1>
+    <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="mb-3">
+        <mat-label>Lozinka</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+    </mat-form-field>
+    <button mat-raised-button color="primary" class="mb-3">Prijavite se</button>
+</div>
