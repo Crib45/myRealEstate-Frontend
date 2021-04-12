@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrationComponent implements OnInit {
 
+  hide: boolean = true;
+  hideConfirm: boolean = true;
+
   constructor() { }
 
   ngOnInit(): void {
