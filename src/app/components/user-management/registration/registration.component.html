@@ -1,10 +1,7 @@
 <div class="registration-wrapper purple-border mx-auto d-flex flex-column justify-content-center mt-5"
     [formGroup]="form">
-    <h1 class="mat-title mx-auto mt-3">Login</h1>
-    <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput type="email">
-    </mat-form-field>
+    <h1 class="mat-display-1 mx-auto mt-3">Registracija</h1>
+    <h2 class="mat-headline subtitle mx-auto mt-3">Osnovni podaci</h2>
     <mat-form-field appearance="fill">
         <mat-label>Ime</mat-label>
         <input matInput>
@@ -13,15 +10,21 @@
         <mat-label>Prezime</mat-label>
         <input matInput>
     </mat-form-field>
+
     <!-- <mat-form-field appearance="fill">
         <mat-label>Telefon</mat-label>
         <input matInput type="tel">
     </mat-form-field> -->
+    <h2 class="mat-headline subtitle mx-auto mt-3">Kontakt informacije</h2>
     <mat-form-field appearance="fill">
-        <mat-label>Phone number</mat-label>
+        <mat-label>Email</mat-label>
+        <input matInput type="email">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Broj telefona</mat-label>
         <app-telephone-input formControlName="tel" required></app-telephone-input>
         <mat-icon matSuffix>phone</mat-icon>
-        <mat-hint>Include area code</mat-hint>
+        <mat-hint>Uključite pozivni broj</mat-hint>
     </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>Korisnicko ime</mat-label>
