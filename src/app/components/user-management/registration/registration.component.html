@@ -1,4 +1,5 @@
-<div class="registration-wrapper purple-border mx-auto d-flex flex-column justify-content-center mt-5">
+<div class="registration-wrapper purple-border mx-auto d-flex flex-column justify-content-center mt-5"
+    [formGroup]="form">
     <h1 class="mat-title mx-auto mt-3">Login</h1>
     <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
@@ -12,15 +13,21 @@
         <mat-label>Prezime</mat-label>
         <input matInput>
     </mat-form-field>
-    <mat-form-field appearance="fill">
+    <!-- <mat-form-field appearance="fill">
         <mat-label>Telefon</mat-label>
         <input matInput type="tel">
+    </mat-form-field> -->
+    <mat-form-field appearance="fill">
+        <mat-label>Phone number</mat-label>
+        <app-telephone-input formControlName="tel" required></app-telephone-input>
+        <mat-icon matSuffix>phone</mat-icon>
+        <mat-hint>Include area code</mat-hint>
     </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>Korisnicko ime</mat-label>
         <input matInput>
     </mat-form-field>
-    <mat-form-field appearance="fill" >
+    <mat-form-field appearance="fill">
         <mat-label>Lozinka</mat-label>
         <input matInput [type]="hide ? 'password' : 'text'">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
@@ -36,5 +43,5 @@
             <mat-icon>{{hideConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
     </mat-form-field>
-    <button mat-raised-button color="primary" class="mb-3">Prijavite se</button>
+    <button mat-raised-button color="primary" class="mb-3" (click)="test()">Prijavite se</button>
 </div>

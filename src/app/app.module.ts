@@ -14,17 +14,22 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { LoginComponent } from './components/user-management/login/login.component';
+import { TelephoneInputComponent } from './components/user-management/telephone-input/telephone-input.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SidebarComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    TelephoneInputComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatFormFieldModule,
