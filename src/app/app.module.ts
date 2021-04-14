@@ -17,6 +17,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import { LoginComponent } from './components/user-management/login/login.component';
 import { TelephoneInputComponent } from './components/user-management/telephone-input/telephone-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './components/home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SidebarComponent,
     RegistrationComponent,
     LoginComponent,
-    TelephoneInputComponent
+    TelephoneInputComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
