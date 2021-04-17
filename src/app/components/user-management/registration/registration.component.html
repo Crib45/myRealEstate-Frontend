@@ -1,58 +1,64 @@
-<div class="registration-wrapper purple-border mx-auto d-flex flex-column justify-content-center mt-5"
-    [formGroup]="form">
-    <h1 class="mat-display-1 mx-auto mt-3">Registracija</h1>
-    <h2 class="mat-headline subtitle mx-auto mt-3">Osnovni podaci</h2>
-    <mat-form-field appearance="fill">
-        <mat-label>Ime</mat-label>
-        <input matInput>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Prezime</mat-label>
-        <input matInput>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Grad</mat-label>
-        <mat-select formControlName="cityIndex" name="city">
-          <mat-option *ngFor="let city of cities; let i = index" [value]="i">
-            {{city.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-    <!-- <mat-form-field appearance="fill">
+<div class="mt-5 mb-5">
+    <div class="registration-wrapper purple-border mx-auto d-flex flex-column justify-content-center mt-5 mb-5"
+        [formGroup]="registryForm">
+        <h1 class="mat-display-1 mx-auto mt-3">Registracija</h1>
+        <h2 class="mat-headline subtitle mx-auto mt-3">Osnovni podaci</h2>
+        <mat-form-field appearance="fill">
+            <mat-label>Ime</mat-label>
+            <input matInput required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Prezime</mat-label>
+            <input matInput required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Grad</mat-label>
+            <mat-select formControlName="cityIndex" name="city" required>
+                <mat-option *ngFor="let city of cities; let i = index" [value]="i">
+                    {{city.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Korisnicko ime</mat-label>
+            <input matInput required formControlName="username">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Lozinka</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" required formControlName="password">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="!form.password.valid">Šifra mora imati minimum 6 karaktera</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="mb-3">
+            <mat-label>Potvrdi lozinku</mat-label>
+            <input matInput [type]="hideConfirm ? 'password' : 'text'" required formControlName="passwordConfirmed">
+            <button mat-icon-button matSuffix (click)="hideConfirm = !hideConfirm" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hideConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="form.password.valid && (form.password !== form.passwordConfirmed)">Šifra se ne podudara</mat-error>
+        </mat-form-field>
+        <!-- <mat-form-field appearance="fill">
         <mat-label>Telefon</mat-label>
         <input matInput type="tel">
     </mat-form-field> -->
-    <h2 class="mat-headline subtitle mx-auto mt-3">Kontakt informacije</h2>
-    <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput type="email">
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Broj telefona</mat-label>
-        <app-telephone-input formControlName="tel" required></app-telephone-input>
-        <mat-icon matSuffix>phone</mat-icon>
-        <mat-hint>Uključite pozivni broj</mat-hint>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Korisnicko ime</mat-label>
-        <input matInput>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Lozinka</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-    </mat-form-field>
-    <mat-form-field appearance="fill" class="mb-3">
-        <mat-label>Potvrdi lozinku</mat-label>
-        <input matInput [type]="hideConfirm ? 'password' : 'text'">
-        <button mat-icon-button matSuffix (click)="hideConfirm = !hideConfirm" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide">
-            <mat-icon>{{hideConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-    </mat-form-field>
-    <button mat-raised-button color="primary" class="mb-3">Prijavite se</button>
+        <h2 class="mat-headline subtitle mx-auto mt-3">Kontakt informacije</h2>
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" required>
+            <mat-error *ngIf="!form.email.valid">Unesite validan email</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Broj telefona</mat-label>
+            <app-telephone-input formControlName="tel" required></app-telephone-input>
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-hint>Uključite pozivni broj</mat-hint>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="mb-3 mt-2" (click)="test()">Prijavite se</button>
+    </div>
 </div>
+<div>&nbsp;</div>

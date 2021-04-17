@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { TelNumber } from 'src/app/models/TelNumber';
 import { CityService } from 'src/app/services/city.service';
@@ -21,22 +21,40 @@ export class RegistrationComponent implements OnInit {
   selectedCityIndex!: Number;
   cities: any = [];
 
-  form: FormGroup = new FormGroup({
-    tel: new FormControl(new TelNumber('', '', '')),
-    cityIndex: new FormControl()
+  registryForm: FormGroup = new FormGroup({
+    tel: new FormControl(new TelNumber('', '', ''), [Validators.required]),
+    cityIndex: new FormControl('', [Validators.required]),
+    lastName: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    passwordConfirmed: new FormControl('', [Validators.required]),
+    username: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email])
   });
 
   constructor(private _cityService: CityService) { }
 
   ngOnInit(): void {
     this.getAllCities();
+    console.log(this.cities)
   }
 
 
-  getAllCities() {
-    this._cityService.getAllCities().subscribe((response:any) => {
+  /**
+   * Returns aray of all cities
+   */
+  getAllCities(): any {
+    this._cityService.getAllCities().subscribe((response: any) => {
       this.cities = response;
     })
   }
+
+  get form() { return this.registryForm.controls; }
+
+
+  test() {
+    console.log(this.form)
+  }
+
 
 }
