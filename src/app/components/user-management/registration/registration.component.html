@@ -1,15 +1,15 @@
 <div class="mt-5 mb-5">
-    <div class="registration-wrapper purple-border mx-auto d-flex flex-column justify-content-center mt-5 mb-5"
-        [formGroup]="registryForm">
+    <form class="registration-wrapper purple-border mx-auto d-flex flex-column justify-content-center mt-5 mb-5"
+        [formGroup]="registryForm" (ngSubmit)="onSubmit()">
         <h1 class="mat-display-1 mx-auto mt-3">Registracija</h1>
         <h2 class="mat-headline subtitle mx-auto mt-3">Osnovni podaci</h2>
         <mat-form-field appearance="fill">
             <mat-label>Ime</mat-label>
-            <input matInput required>
+            <input matInput required formControlName="firstName">
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Prezime</mat-label>
-            <input matInput required>
+            <input matInput required formControlName="lastName">
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Grad</mat-label>
@@ -39,7 +39,8 @@
                 [attr.aria-pressed]="hide">
                 <mat-icon>{{hideConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
-            <mat-error *ngIf="form.password.valid && (form.password !== form.passwordConfirmed)">Šifra se ne podudara</mat-error>
+            <mat-error *ngIf="form.password.valid && (form.password !== form.passwordConfirmed)">Šifra se ne podudara
+            </mat-error>
         </mat-form-field>
         <!-- <mat-form-field appearance="fill">
         <mat-label>Telefon</mat-label>
@@ -58,7 +59,8 @@
             <mat-hint>Uključite pozivni broj</mat-hint>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" class="mb-3 mt-2" (click)="test()">Prijavite se</button>
-    </div>
+        <button mat-raised-button color="primary" class="mb-3 mt-2"
+           [disabled]="!registryForm.valid" type="submit">Prijavite se</button>
+    </form>
 </div>
 <div>&nbsp;</div>

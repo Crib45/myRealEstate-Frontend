@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { TelNumber } from 'src/app/models/TelNumber';
+import { User } from 'src/app/models/User';
 import { CityService } from 'src/app/services/city.service';
+import { UserService } from 'src/app/services/user.service';
 import { TelephoneInputComponent } from '../telephone-input/telephone-input.component';
 
 @Component({
@@ -25,14 +27,17 @@ export class RegistrationComponent implements OnInit {
     tel: new FormControl(new TelNumber('', '', ''), [Validators.required]),
     cityIndex: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
-    name: new FormControl('', [Validators.required]),
+    firstName: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     passwordConfirmed: new FormControl('', [Validators.required]),
     username: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email])
   });
 
-  constructor(private _cityService: CityService) { }
+  constructor(
+    private _cityService: CityService,
+    private _userService: UserService
+  ) { }
 
   ngOnInit(): void {
     this.getAllCities();
@@ -53,8 +58,23 @@ export class RegistrationComponent implements OnInit {
 
 
   test() {
-    console.log(this.form)
+    console.log(this.registryForm)
   }
 
+  onSubmit() {
+    let user = new User(
+      this.form.username.value,
+      this.form.firstName.value,
+      this.form.lastName.value,
+      this.form.password.value,
+      this.form.email.value,
+      this.cities[this.form.cityIndex.value],
+      parseInt(this.form.tel.value.area + this.form.tel.value.exchange + this.form.tel.value.subscriber)
+    )
+    console.log(user)
+    this._userService.register(user).subscribe(response => {
+      
+    })
+  }
 
 }
