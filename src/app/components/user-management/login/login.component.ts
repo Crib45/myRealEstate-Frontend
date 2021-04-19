@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
     private _userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -40,14 +42,19 @@ export class LoginComponent implements OnInit {
           'token',
           btoa(this.form.email.value + ':' + this.form.password.value)
         );
+        this.openSnackBar("Uspešno logovanje", "Zatvori");
         this.router.navigate(['']);
       } else {
-        alert("Authentication failed.");
+        this.openSnackBar("Uspešno logovanje", "Zatvori");
       }
     });
   }
 
   get form() { return this.loginForm.controls; }
 
-
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
 }
