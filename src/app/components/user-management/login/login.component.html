@@ -1,4 +1,5 @@
-<form class="login-wrapper purple-border mx-auto d-flex flex-column justify-content-center mt-5" [formGroup]="loginForm">
+<form class="login-wrapper purple-border mx-auto d-flex flex-column justify-content-center mt-5" 
+[formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <h1 class="mat-display-1 mx-auto mt-3">Login</h1>
     <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>

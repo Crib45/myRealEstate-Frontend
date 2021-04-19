@@ -33,8 +33,8 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     let user: any = {
-      email: this.form.email,
-      password: this.form.password
+      email: this.form.email.value,
+      password: this.form.password.value
     }
     this._authService.login(user).subscribe(isValid => {
       if (isValid) {
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         this.openSnackBar("Uspešno logovanje", "Zatvori");
         this.router.navigate(['']);
       } else {
-        this.openSnackBar("Uspešno logovanje", "Zatvori");
+        this.openSnackBar("Pogrešna lozinka ili email", "Zatvori");
       }
     });
   }
