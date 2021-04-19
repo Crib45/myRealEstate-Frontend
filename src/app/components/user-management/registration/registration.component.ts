@@ -41,7 +41,6 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllCities();
-    console.log(this.cities)
   }
 
 
@@ -57,9 +56,6 @@ export class RegistrationComponent implements OnInit {
   get form() { return this.registryForm.controls; }
 
 
-  test() {
-    console.log(this.registryForm)
-  }
 
   onSubmit() {
     let user = new User(
@@ -71,9 +67,7 @@ export class RegistrationComponent implements OnInit {
       this.cities[this.form.cityIndex.value],
       parseInt(this.form.tel.value.area + this.form.tel.value.exchange + this.form.tel.value.subscriber)
     )
-    console.log(user)
     this._userService.register(user).subscribe(response => {
-      
     })
   }
 

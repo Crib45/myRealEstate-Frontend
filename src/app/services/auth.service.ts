@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor() { }
+  url = "http://localhost:8080/";
+
+  constructor(private http: HttpClient) { }
 
   getAuthorizationToken() {
     return sessionStorage.getItem('token');
@@ -18,4 +21,16 @@ export class AuthService {
     headers = headers.append("Content-Type", "application/x-www-form-urlencoded");
     return headers;
   }
+
+  login(user: User) {
+    return this.http.post(this.url + "user/login",  user );
+  }
+
+  isLoggedIn() {
+    if (sessionStorage.getItem('token') == '' || sessionStorage.getItem('token') == null) {
+      return false;
+    }
+    else return true;
+  }
+
 }

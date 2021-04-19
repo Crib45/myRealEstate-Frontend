@@ -15,6 +15,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSelectModule} from '@angular/material/select';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { LoginComponent } from './components/user-management/login/login.component';
 import { TelephoneInputComponent } from './components/user-management/telephone-input/telephone-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -44,7 +45,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatIconModule,
     MatInputModule,
     MatDividerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
