@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -43,9 +44,15 @@ export class LoginComponent implements OnInit {
           btoa(this.form.email.value + ':' + this.form.password.value)
         );
         this.openSnackBar("Uspešno logovanje", "Zatvori");
+        let headers:HttpHeaders = this._authService.getHeaders;
+        this._userService.getLoggedUser(headers).subscribe(response => {
+
+        })
         this.router.navigate(['']);
       } else {
         this.openSnackBar("Pogrešna lozinka ili email", "Zatvori");
+        this.form.email.setValue('');
+        this.form.password.setValue('');
       }
     });
   }

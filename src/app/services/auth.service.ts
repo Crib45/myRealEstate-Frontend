@@ -26,11 +26,15 @@ export class AuthService {
     return this.http.post(this.url + "user/login",  user );
   }
 
-  isLoggedIn() {
+  isLoggedIn():boolean {
     if (sessionStorage.getItem('token') == '' || sessionStorage.getItem('token') == null) {
       return false;
     }
     else return true;
+  }
+
+  logout() {
+    sessionStorage.setItem('token', '');
   }
 
 }

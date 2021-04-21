@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { User } from '../models/User';
 
 @Injectable({
@@ -15,6 +16,10 @@ export class UserService {
 
   register(user: User) {
     return this.http.post(this.url + "user/register",  user );
+  }
+
+  getLoggedUser(headers:HttpHeaders) {
+    return this.http.get(this.url + "user/getLoggedUser", {headers});
   }
 
 
