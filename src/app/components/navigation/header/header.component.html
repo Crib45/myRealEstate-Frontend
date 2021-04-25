@@ -1,14 +1,24 @@
 <mat-toolbar color="primary">
-    <span>Moje nekretnine</span>
+    <ng-container>
+        <mat-icon class="mr-2">apartment</mat-icon>
+        <span>Moje nekretnine</span>
+    </ng-container>
+
     <span class="spacer"></span>
     <div *ngIf="_authService.isLoggedIn(); else notLogged">
+        <button mat-raised-button color="primary" routerLink="/profile-edit" class="mr-2">
+            Vaš profil
+            <mat-icon>
+                account_circle
+            </mat-icon>
+        </button>
         <button mat-raised-button color="primary" (click)="_authService.logout()">
             Logout
             <mat-icon>logout</mat-icon>
         </button>
     </div>
     <ng-template #notLogged>
-        <button mat-raised-button color="primary" class="login-btn" routerLink="/login">
+        <button mat-raised-button color="primary" class="login-btn mr-2" routerLink="/login">
             Login
             <mat-icon>person</mat-icon>
         </button>

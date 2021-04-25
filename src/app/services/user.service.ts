@@ -19,7 +19,7 @@ export class UserService {
   }
 
   getLoggedUser(headers:HttpHeaders) {
-    return this.http.get(this.url + "user/getLoggedUser", {headers});
+    return this.http.get(this.url + "user/getLoggedUser");
   }
 
 

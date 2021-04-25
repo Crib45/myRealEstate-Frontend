@@ -20,7 +20,9 @@ import { LoginComponent } from './components/user-management/login/login.compone
 import { TelephoneInputComponent } from './components/user-management/telephone-input/telephone-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ProfileEditComponent } from './components/user-management/profile-edit/profile-edit.component';
+import { AuthHeadersInterceptor } from './services/auth-headers.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
     RegistrationComponent,
     LoginComponent,
     TelephoneInputComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileEditComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,11 @@ import { HttpClientModule } from '@angular/common/http';
     MatSelectModule,
     MatSnackBarModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS,
+    useClass: AuthHeadersInterceptor,
+    multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
