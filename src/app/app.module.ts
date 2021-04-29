@@ -26,6 +26,7 @@ import { AuthHeadersInterceptor } from './services/auth-headers.interceptor';
 import { SanitizerPipe } from './pipes/sanitizer.pipe';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { CategoryComponent } from './components/category/category.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +37,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     TelephoneInputComponent,
     HomeComponent,
     ProfileEditComponent,
-    SanitizerPipe
+    SanitizerPipe,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,

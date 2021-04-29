@@ -47,7 +47,9 @@
                     <p>{{ category.description }}</p>
                 </mat-card-content>
                 <mat-card-actions class="d-flex justify-content-between">
-                    <button mat-raised-button color="primary" class="mr-2">Pregled oglasa</button>
+                    <button mat-raised-button color="primary" class="mr-2" [routerLink]="['/category', category.title]">
+                        Pregled oglasa
+                    </button>
                     <button mat-mini-fab aria-label="Put category as favorite" color="primary">
                         <mat-icon>favorite</mat-icon>
                     </button>
