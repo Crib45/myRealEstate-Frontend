@@ -1,1 +1,58 @@
-<p>home works!</p>
+<div class="container-fluid home-wrap mt-5 mb-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="search-container d-flex justify-content-center pt-2">
+                <div class="search-container-mini d-flex">
+                    <mat-form-field class="ml-4" appearance="outline">
+                        <mat-label>
+                            Kategorija
+                        </mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let category of categories; let i = index" [value]="category.id">
+                                {{category.title}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="ml-4" appearance="outline">
+                        <mat-label>
+                            Cena
+                        </mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                    <mat-form-field class="ml-4" appearance="outline">
+                        <mat-label>
+                            Veličina
+                        </mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                        <button mat-stroked-button color="primary" class="ml-4">
+                            Pretraga
+                            <mat-icon class="ml-3">
+                                search
+                            </mat-icon>
+                        </button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4" *ngFor="let category of categories">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>{{ category.title }}</mat-card-title>
+                </mat-card-header>
+                <img mat-card-image [src]="category.picture.categoryPicture | sanitizer" alt="Photo of a Shiba Inu">
+                <mat-card-content>
+                    <p>{{ category.description }}</p>
+                </mat-card-content>
+                <mat-card-actions class="d-flex justify-content-between">
+                    <button mat-raised-button color="primary" class="mr-2">Pregled oglasa</button>
+                    <button mat-mini-fab aria-label="Put category as favorite" color="primary">
+                        <mat-icon>favorite</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>

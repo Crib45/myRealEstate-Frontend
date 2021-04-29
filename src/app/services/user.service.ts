@@ -18,7 +18,7 @@ export class UserService {
     return this.http.post(this.url + "user/register",  user );
   }
 
-  getLoggedUser(headers:HttpHeaders) {
+  getLoggedUser() {
     return this.http.get(this.url + "user/getLoggedUser");
   }
 

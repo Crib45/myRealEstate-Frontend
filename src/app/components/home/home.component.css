@@ -1,0 +1,36 @@
+.home-wrap {
+    width: 90%;
+    margin:auto;
+}
+
+mat-grid-list mat-grid-tile mat-card {
+    width: 98%;
+    height: 98%;
+}
+
+mat-card-content {
+    font-weight: 400;
+}
+
+img.mat-card-image {
+    height: 300px;
+    /* width: 600px; */
+}
+
+.search-container {
+    height: 200px;
+    background-image: url("/../../assets/pano.jpg");
+    background-size: contain;
+}
+
+.search-container button {
+    height: 51.31px;
+    margin-top: 4px;
+}
+
+.search-container-mini {
+    padding: 15px;
+    background-color:rgb(255,255,255,0.7);
+    height: fit-content;
+    /* opacity: 0.2; */
+}

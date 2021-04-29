@@ -23,6 +23,9 @@ import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProfileEditComponent } from './components/user-management/profile-edit/profile-edit.component';
 import { AuthHeadersInterceptor } from './services/auth-headers.interceptor';
+import { SanitizerPipe } from './pipes/sanitizer.pipe';
+import {MatCardModule} from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +35,8 @@ import { AuthHeadersInterceptor } from './services/auth-headers.interceptor';
     LoginComponent,
     TelephoneInputComponent,
     HomeComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    SanitizerPipe
   ],
   imports: [
     BrowserModule,
@@ -49,7 +53,9 @@ import { AuthHeadersInterceptor } from './services/auth-headers.interceptor';
     MatInputModule,
     MatDividerModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCardModule,
+    MatGridListModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS,

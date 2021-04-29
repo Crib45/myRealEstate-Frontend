@@ -15,3 +15,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .subtitle {
     color: rgb(103,58,183);
 }
+
+.hover-pointer:hover {
+    cursor: pointer;
+}

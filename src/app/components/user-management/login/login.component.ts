@@ -44,9 +44,7 @@ export class LoginComponent implements OnInit {
           btoa(this.form.email.value + ':' + this.form.password.value)
         );
         this.openSnackBar("Uspešno logovanje", "Zatvori");
-        let headers:HttpHeaders = this._authService.getHeaders;
-        this._userService.getLoggedUser(headers).subscribe(response => {
-
+        this._userService.getLoggedUser().subscribe(response => {
         })
         this.router.navigate(['']);
       } else {

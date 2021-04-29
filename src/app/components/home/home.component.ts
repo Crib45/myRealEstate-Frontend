@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  categories: any[] = [];
+
+  constructor(private _categoryService: CategoryService) { }
 
   ngOnInit(): void {
+    this.getCategories();
+  }
+
+  getCategories(){
+    this._categoryService.getAllCategories().subscribe((response: any) => {
+      this.categories = response;
+      this.categories.forEach(element => {
+        element.picture.categoryPicture = "data:" + element.picture.contentType +";base64,"+ element.picture.imgBlob;
+      });
+    })
   }
 
 }
