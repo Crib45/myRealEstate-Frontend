@@ -26,7 +26,9 @@ import { AuthHeadersInterceptor } from './services/auth-headers.interceptor';
 import { SanitizerPipe } from './pipes/sanitizer.pipe';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatTabsModule} from '@angular/material/tabs';
 import { CategoryComponent } from './components/category/category.component';
+import { UserAdvertsComponent } from './components/user-adverts/user-adverts.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +40,8 @@ import { CategoryComponent } from './components/category/category.component';
     HomeComponent,
     ProfileEditComponent,
     SanitizerPipe,
-    CategoryComponent
+    CategoryComponent,
+    UserAdvertsComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,8 @@ import { CategoryComponent } from './components/category/category.component';
     MatSelectModule,
     MatSnackBarModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTabsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS,
