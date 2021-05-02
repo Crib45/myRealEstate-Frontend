@@ -13,4 +13,8 @@ export class SubcategoryService {
   getSubCategoriesByCategoryTitle(categoryTitle:string) {
     return this.http.get(this.url + "subcategory/getAllByCategoryTitle/" + categoryTitle);
   }
+
+  getSubCategoriesByCategoryId(categoryId: number) {
+    return this.http.get(this.url + "subcategory/getAllByCategoryId/" + categoryId);
+  }
 }

@@ -6,6 +6,12 @@
 
     <span class="spacer"></span>
     <div *ngIf="_authService.isLoggedIn(); else notLogged">
+        <button mat-raised-button color="primary" routerLink="/my-adverts" class="mr-2">
+            Vaši oglasi
+            <mat-icon>
+                photo_library
+            </mat-icon>
+        </button>
         <button mat-raised-button color="primary" routerLink="/profile-edit" class="mr-2">
             Vaš profil
             <mat-icon>

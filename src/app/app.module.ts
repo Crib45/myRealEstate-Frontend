@@ -29,6 +29,10 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTabsModule} from '@angular/material/tabs';
 import { CategoryComponent } from './components/category/category.component';
 import { UserAdvertsComponent } from './components/user-adverts/user-adverts.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatStepperModule} from '@angular/material/stepper';
+import { AdvertEditComponent } from './components/modals/advert-edit/advert-edit.component';
+import {MatDialogModule} from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +45,8 @@ import { UserAdvertsComponent } from './components/user-adverts/user-adverts.com
     ProfileEditComponent,
     SanitizerPipe,
     CategoryComponent,
-    UserAdvertsComponent
+    UserAdvertsComponent,
+    AdvertEditComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +66,10 @@ import { UserAdvertsComponent } from './components/user-adverts/user-adverts.com
     MatSnackBarModule,
     MatCardModule,
     MatGridListModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule,
+    MatStepperModule,
+    MatDialogModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS,

@@ -1,1 +1,45 @@
-<p>user-adverts works!</p>
+<div class="container-fluid user-adverts-wrap mt-5 mb-5">
+    <div class="row">
+        <div class="col-12">
+            <button mat-raised-button color="primary" class="mr-2" (click)="createAdvert()">
+                Napravi novi oglas
+                <mat-icon>
+                    post_add
+                </mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <table mat-table [dataSource]="advertData" class="mat-elevation-z8">
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef>Naslov</th>
+                    <td mat-cell *matCellDef="let element"> </td>
+                </ng-container>
+                <ng-container matColumnDef="price">
+                    <th mat-header-cell *matHeaderCellDef>Cena</th>
+                    <td mat-cell *matCellDef="let element"> </td>
+                </ng-container>
+                <ng-container matColumnDef="createdAt">
+                    <th mat-header-cell *matHeaderCellDef>Napravljen datuma</th>
+                    <td mat-cell *matCellDef="let element"> </td>
+                </ng-container>
+                <ng-container matColumnDef="expiresAt">
+                    <th mat-header-cell *matHeaderCellDef>Isteče datuma</th>
+                    <td mat-cell *matCellDef="let element"> </td>
+                </ng-container>
+                <ng-container matColumnDef="edit">
+                    <th mat-header-cell *matHeaderCellDef>Izmeni</th>
+                    <td mat-cell *matCellDef="let element"> </td>
+                </ng-container>
+                <ng-container matColumnDef="delete">
+                    <th mat-header-cell *matHeaderCellDef>Obriši</th>
+                    <td mat-cell *matCellDef="let element"> </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+            </table>
+        </div>
+    </div>
+</div>

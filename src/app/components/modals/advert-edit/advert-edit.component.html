@@ -1,0 +1,32 @@
+<mat-dialog-content>
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup">
+              <ng-template matStepLabel>Naslov i kategorija oglasa</ng-template>
+              <mat-form-field class="mr-3">
+                <mat-label>Naslov</mat-label>
+                <input matInput placeholder="Naslov" formControlName="title" required>
+              </mat-form-field>
+              <mat-form-field class="mr-3">
+                <mat-label>Kategorija</mat-label>
+                <mat-select formControlName="categoryIndex" name="category" required>
+                    <mat-option *ngFor="let category of categories; let i = index" [value]="i">
+                        {{category.title}}
+                    </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field *ngIf="form.categoryIndex.value || form.categoryIndex.value === 0">
+                <mat-label>Pod kategorija</mat-label>
+                <mat-select formControlName="subCategoryIndex" name="subCategory" required>
+                    <mat-option *ngFor="let subCategory of subCategories; let i = index" [value]="i">
+                        {{subCategory.title}}
+                    </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div>
+                <button mat-stroked-button matStepperNext>Dalje</button>
+              </div>
+            </form>
+          </mat-step>
+    </mat-horizontal-stepper>
+</mat-dialog-content>
