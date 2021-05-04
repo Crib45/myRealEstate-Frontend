@@ -18,7 +18,7 @@ export class AuthHeadersInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: {
           'Authorization': "Basic " + sessionStorage.getItem('token'),
-          'Content-Type': "application/x-www-form-urlencoded"
+          // 'Content-Type': "application/x-www-form-urlencoded"
         }
       })
     }

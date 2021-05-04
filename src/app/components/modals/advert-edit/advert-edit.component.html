@@ -2,7 +2,7 @@
     <mat-horizontal-stepper [linear]="isLinear" #stepper>
         <mat-step [stepControl]="firstFormGroup">
             <form [formGroup]="firstFormGroup">
-              <ng-template matStepLabel>Naslov i kategorija oglasa</ng-template>
+              <ng-template matStepLabel>Naslov, kategorija, cena, veličina</ng-template>
               <mat-form-field class="mr-3">
                 <mat-label>Naslov</mat-label>
                 <input matInput placeholder="Naslov" formControlName="title" required>
@@ -15,7 +15,7 @@
                     </mat-option>
                 </mat-select>
               </mat-form-field>
-              <mat-form-field *ngIf="form.categoryIndex.value || form.categoryIndex.value === 0">
+              <mat-form-field *ngIf="formOne.categoryIndex.value || formOne.categoryIndex.value === 0" class="mr-3">
                 <mat-label>Pod kategorija</mat-label>
                 <mat-select formControlName="subCategoryIndex" name="subCategory" required>
                     <mat-option *ngFor="let subCategory of subCategories; let i = index" [value]="i">
@@ -23,9 +23,37 @@
                     </mat-option>
                 </mat-select>
               </mat-form-field>
+              <mat-form-field class="mr-3">
+                <mat-label>Veličina</mat-label>
+                <input type="number" matInput placeholder="Veličina u m2" formControlName="size" required>
+                <span matSuffix class="font-weight-bold" style="font-size: 21px;">&#13217;</span>
+              </mat-form-field>
+              <mat-form-field class="mr-3">
+                <mat-label>Cena</mat-label>
+                <input type="number" matInput placeholder="Cena u €" formControlName="price" required>
+                <mat-icon matSuffix>euro_symbol</mat-icon>
+              </mat-form-field>
               <div>
                 <button mat-stroked-button matStepperNext>Dalje</button>
               </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="secondFormGroup">
+            <form [formGroup]="secondFormGroup">
+              <ng-template matStepLabel>Grad, opis, datum isteka</ng-template>
+              <mat-form-field class="mr-3">
+                <mat-label>Opis</mat-label>
+                <textarea matInput placeholder="Opis" formControlName="description" required></textarea>
+              </mat-form-field>
+              <mat-form-field class="mr-3">
+                <mat-label>Grad</mat-label>
+                <mat-select formControlName="cityIndex" name="city" required>
+                    <mat-option *ngFor="let city of cities; let i = index" [value]="i">
+                        {{city.name}}
+                    </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <button mat-stroked-button (click)="saveAdvert()">Sačuvaj</button>
             </form>
           </mat-step>
     </mat-horizontal-stepper>
