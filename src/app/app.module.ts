@@ -33,6 +33,9 @@ import {MatTableModule} from '@angular/material/table';
 import {MatStepperModule} from '@angular/material/stepper';
 import { AdvertEditComponent } from './components/modals/advert-edit/advert-edit.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +72,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatTabsModule,
     MatTableModule,
     MatStepperModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS,

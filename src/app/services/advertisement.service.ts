@@ -15,4 +15,8 @@ export class AdvertisementService {
   save(advertisement: Advertisement) {
     return this.http.post(this.url + "advertisement/save",  advertisement );
   }
+
+  getAllByOwned() {
+    return this.http.get(this.url + "advertisement/getAllByLogged");
+  }
 }

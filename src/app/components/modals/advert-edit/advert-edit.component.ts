@@ -30,7 +30,7 @@ export class AdvertEditComponent implements OnInit {
 
   secondFormGroup: FormGroup = new FormGroup({
     description: new FormControl('', [Validators.required]),
-    expiryDate: new FormControl('', [Validators.required]),
+    expireDate: new FormControl('', [Validators.required]),
     cityIndex: new FormControl('', [Validators.required]),
   });
 
@@ -88,24 +88,18 @@ export class AdvertEditComponent implements OnInit {
 
     saveAdvert() {
 
-      let advertisement: Advertisement = new Advertisement(
-        this.formOne.title.value,
-        this.formOne.title.value,
-        this.formOne.price.value,
-        this.formOne.size.value,
-        {
-          size: this.formOne.size.value,
-          city: this.cities[this.formTwo.cityIndex.value],
-          subCategory: this.subCategories[this.formOne.subCategoryIndex.value]
-        }
-      );
-      // let advertisement: Advertisement = new Advertisement(
-      //   'ime',
-      //   'opis',
-      //   123123,
-      //   424242,
-      //   null
-      // )
+      let advertisement: Advertisement = new Advertisement();
+      console.log(advertisement);
+      advertisement.title = this.formOne.title.value;
+      advertisement.description = this.formTwo.description.value,
+      advertisement.finished = false;
+      advertisement.price = this.formOne.price.value;
+      advertisement.expireDate = (<Date>this.formTwo.expireDate.value).getTime();
+      advertisement.estate = {
+        size: this.formOne.size.value,
+        city: this.cities[this.formTwo.cityIndex.value],
+        subCategory: this.subCategories[this.formOne.subCategoryIndex.value]
+      };
       console.log(advertisement)
       this._advertisementService.save(advertisement).subscribe(response => {
         

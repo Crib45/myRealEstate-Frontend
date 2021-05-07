@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Advertisement } from 'src/app/models/Advertisement';
+import { AdvertisementService } from 'src/app/services/advertisement.service';
 import { AdvertEditComponent } from '../modals/advert-edit/advert-edit.component';
 
 @Component({
@@ -10,11 +12,15 @@ import { AdvertEditComponent } from '../modals/advert-edit/advert-edit.component
 export class UserAdvertsComponent implements OnInit {
 
   columnsToDisplay: string[] = ['title','price','createdAt','expiresAt','edit','delete'];
-  advertData = [];
+  advertData: Advertisement[] = [];
 
-  constructor(private dialog: MatDialog) { }
+  constructor(
+    private dialog: MatDialog,
+    private _advertisementService: AdvertisementService
+    ) { }
 
   ngOnInit(): void {
+    this.getOwnedAdvertisements();
   }
 
   createAdvert() {
@@ -25,6 +31,13 @@ export class UserAdvertsComponent implements OnInit {
     dialogConfig.autoFocus = false;
     dialogConfig.minWidth = "50%";
     this.dialog.open(AdvertEditComponent, dialogConfig);
+  }
+
+  getOwnedAdvertisements() {
+    this._advertisementService.getAllByOwned().subscribe((response: any) => {
+        this.advertData = response;
+        console.log(this.advertData)
+    });
   }
 
 }

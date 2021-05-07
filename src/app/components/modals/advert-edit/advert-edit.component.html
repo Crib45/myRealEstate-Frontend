@@ -53,6 +53,12 @@
                     </mat-option>
                 </mat-select>
               </mat-form-field>
+              <mat-form-field class="mr-3">
+                <mat-label>Grad</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="expireDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
               <button mat-stroked-button (click)="saveAdvert()">Sačuvaj</button>
             </form>
           </mat-step>
