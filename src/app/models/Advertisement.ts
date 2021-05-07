@@ -4,6 +4,7 @@ export class Advertisement {
     public price?: number;
     public estate?: any;
     public finished: boolean = false;
+    public published: boolean = true;
     public createdAt?: number;
     public expireDate?: number;
     constructor(){}

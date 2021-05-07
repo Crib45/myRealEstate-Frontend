@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -34,7 +34,12 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { AdvertEditComponent } from './components/modals/advert-edit/advert-edit.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MatDateFormats, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { registerLocaleData } from '@angular/common';
+import localeSr from '@angular/common/locales/sr';
+import { ConfirmationDialogComponent } from './components/modals/confirmation-dialog/confirmation-dialog.component';
+import { AdvertPicturesComponent } from './components/modals/advert-pictures/advert-pictures.component';
+registerLocaleData(localeSr);
 
 @NgModule({
   declarations: [
@@ -49,7 +54,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     SanitizerPipe,
     CategoryComponent,
     UserAdvertsComponent,
-    AdvertEditComponent
+    AdvertEditComponent,
+    ConfirmationDialogComponent,
+    AdvertPicturesComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +86,14 @@ import { MatNativeDateModule } from '@angular/material/core';
   providers: [
     { provide: HTTP_INTERCEPTORS,
     useClass: AuthHeadersInterceptor,
-    multi: true }
+    multi: true },
+    {
+      provide: LOCALE_ID,
+      useValue: 'sr_RS'
+    },
+    { provide: MAT_DATE_LOCALE, 
+      useValue: 'sr' 
+    },
   ],
   bootstrap: [AppComponent]
 })

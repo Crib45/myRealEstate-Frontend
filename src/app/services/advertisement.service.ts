@@ -16,6 +16,10 @@ export class AdvertisementService {
     return this.http.post(this.url + "advertisement/save",  advertisement );
   }
 
+  delete(id: Number) {
+    return this.http.delete(this.url + "advertisement/delete/"+id,{ responseType: 'text' });
+  }
+
   getAllByOwned() {
     return this.http.get(this.url + "advertisement/getAllByLogged");
   }

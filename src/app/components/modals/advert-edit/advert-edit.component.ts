@@ -102,7 +102,7 @@ export class AdvertEditComponent implements OnInit {
       };
       console.log(advertisement)
       this._advertisementService.save(advertisement).subscribe(response => {
-        
+        this.close();
       })
     }
 
