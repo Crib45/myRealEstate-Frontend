@@ -13,11 +13,15 @@ export class AdvertisementService {
   constructor(private http: HttpClient) { }
 
   save(advertisement: Advertisement) {
-    return this.http.post(this.url + "advertisement/save",  advertisement );
+    return this.http.post(this.url + "advertisement",  advertisement );
   }
 
   delete(id: Number) {
-    return this.http.delete(this.url + "advertisement/delete/"+id,{ responseType: 'text' });
+    return this.http.delete(this.url + "advertisement/"+id,{ responseType: 'text' });
+  }
+
+  publish(id: Number) {
+    return this.http.put(this.url + "advertisement/publish/"+id,{});
   }
 
   getAllByOwned() {

@@ -11,6 +11,6 @@ export class CityService {
   constructor(private http: HttpClient) { }
 
   getAllCities(){
-    return this.http.get(this.url + "city/getAll");
+    return this.http.get(this.url + "cities");
   }
 }

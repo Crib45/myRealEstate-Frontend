@@ -1,0 +1,11 @@
+.edit-picture {
+    height: 350px;
+    max-width: 350px;
+    object-fit: contain;
+}
+
+.picture-in-row {
+    height: 150px;
+    max-width: 150px;
+    object-fit: contain;
+}

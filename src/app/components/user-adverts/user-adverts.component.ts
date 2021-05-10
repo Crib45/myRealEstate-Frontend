@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Advertisement } from 'src/app/models/Advertisement';
 import { AdvertisementService } from 'src/app/services/advertisement.service';
 import { AdvertEditComponent } from '../modals/advert-edit/advert-edit.component';
+import { AdvertPicturesComponent } from '../modals/advert-pictures/advert-pictures.component';
 import { ConfirmationDialogComponent } from '../modals/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
@@ -13,7 +14,7 @@ import { ConfirmationDialogComponent } from '../modals/confirmation-dialog/confi
 })
 export class UserAdvertsComponent implements OnInit {
 
-  columnsToDisplay: string[] = ['title','price','createdAt','expiresAt','edit','pictures','delete'];
+  columnsToDisplay: string[] = ['title','price','createdAt','expiresAt','edit','additionalInfo','pictures','delete','publish'];
   advertData: Advertisement[] = [];
 
   constructor(
@@ -35,7 +36,12 @@ export class UserAdvertsComponent implements OnInit {
     dialogConfig.minWidth = "50%";
     const dialogRef = this.dialog.open(AdvertEditComponent, dialogConfig);
     dialogRef.afterClosed().subscribe((response:any) => {
-      this.getOwnedAdvertisements();
+      if(response) {
+        this.getOwnedAdvertisements();
+        this.snackBar.open('Uspešno napravljen oglas', 'Fechar', {
+          duration: 5000,
+        });
+      }
     })
   }
 
@@ -46,10 +52,9 @@ export class UserAdvertsComponent implements OnInit {
   }
 
   openDeleteConfirmation(advertId: Number) {
-    console.log(advertId);
     const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
       data:{
-        message: 'Da li ste sigurni da zelite da obrišete oglas?',
+        message: 'Da li ste sigurni da želite da obrišete oglas?',
         buttonText: {
           ok: 'Obriši',
           cancel: 'Otkaži'
@@ -62,12 +67,47 @@ export class UserAdvertsComponent implements OnInit {
       snack.dismiss();
       if (confirmed) {
         this._advertisementService.delete(advertId).subscribe(response => {
-          this.snackBar.open('Uspešno obrisan oglas', 'Fechar', {
+          this.snackBar.open('Uspešno obrisan oglas', undefined, {
             duration: 2000,
           });
           this.getOwnedAdvertisements();
         })
       }
     });
+  }
+
+  publishAdvert(advertisement: Advertisement) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
+      data:{
+        message: 'Da li ste sigurni da želite da objavite oglas?',
+        buttonText: {
+          ok: 'Potvrdi',
+          cancel: 'Otkaži'
+        }
+      }
+    });
+    const snack = this.snackBar.open('Ova akcija se ne možе poništiti');
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      snack.dismiss();
+      if (confirmed) {
+        this._advertisementService.publish(advertisement.id!).subscribe(response => {
+          this.snackBar.open('Uspešno objavljen oglas', undefined, {
+            duration: 2000,
+          });
+          this.getOwnedAdvertisements();
+        })
+      }
+    });
+  }
+
+  openPictures(advertisement: Advertisement) {
+    console.log(advertisement)
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+     advertId: advertisement.id
+    }
+    dialogConfig.minWidth = "50%";
+    const dialogRef = this.dialog.open(AdvertPicturesComponent, dialogConfig);
   }
 }

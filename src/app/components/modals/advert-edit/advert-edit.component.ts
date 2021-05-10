@@ -87,7 +87,6 @@ export class AdvertEditComponent implements OnInit {
     }
 
     saveAdvert() {
-
       let advertisement: Advertisement = new Advertisement();
       console.log(advertisement);
       advertisement.title = this.formOne.title.value;
@@ -102,7 +101,7 @@ export class AdvertEditComponent implements OnInit {
       };
       console.log(advertisement)
       this._advertisementService.save(advertisement).subscribe(response => {
-        this.close();
+        this.dialogRef.close(true);
       })
     }
 
