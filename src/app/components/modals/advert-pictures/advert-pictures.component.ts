@@ -30,13 +30,12 @@ export class AdvertPicturesComponent implements OnInit {
   }
 
   deletePicture() {
-    this.selectedPicture = null;
-    this.selectedData = null;
-    if(this.selectedData){
-      this._advertisementPictureService.delete(this.selectedData.id).subscribe(response => {
+    if(this.selectedPicture.pictureId){
+      this._advertisementPictureService.delete(this.selectedPicture.pictureId).subscribe(response => {
         this.getPictures();
       });
     }
+    this.selectedPicture = null;
   }
 
   getPictures() {
@@ -53,7 +52,8 @@ export class AdvertPicturesComponent implements OnInit {
     let file: FormData = new FormData;
     file.append("file",this.selectedPicture.file)
     this._advertisementPictureService.save(file, this.advertisementId).subscribe(response => {
-
+      this.getPictures();
+      this.selectedPicture = null;
     });
   }
 
@@ -73,5 +73,22 @@ export class AdvertPicturesComponent implements OnInit {
         this.selectedPicture.picture = reader.result;
       }
     }
+  }
+
+  selectExistingPicture(picture: any) {
+    this.selectedPicture = {};
+    this.selectedPicture.picture = picture.pictureBlob;
+    this.selectedPicture.pictureId = picture.id;
+    this.selectedPicture.primaryPic = picture.primaryPic;
+  }
+
+  makePrimary(pictureId: Number) {
+    this._advertisementPictureService.setPrimary(this.advertisementId, pictureId).subscribe(response => {
+      this.getPictures();
+    })
+  }
+
+  cancelPicture() {
+    this.selectedPicture = null;
   }
 }

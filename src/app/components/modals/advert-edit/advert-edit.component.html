@@ -9,16 +9,18 @@
               </mat-form-field>
               <mat-form-field class="mr-3">
                 <mat-label>Kategorija</mat-label>
-                <mat-select formControlName="categoryIndex" name="category" required>
-                    <mat-option *ngFor="let category of categories; let i = index" [value]="i">
+                <mat-select formControlName="categoryIndex" name="category" [compareWith]="objectComparisonFunction" required>
+                    <mat-option *ngFor="let category of categories; let i = index"
+                    [value]="category">
                         {{category.title}}
                     </mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field *ngIf="formOne.categoryIndex.value || formOne.categoryIndex.value === 0" class="mr-3">
                 <mat-label>Pod kategorija</mat-label>
-                <mat-select formControlName="subCategoryIndex" name="subCategory" required>
-                    <mat-option *ngFor="let subCategory of subCategories; let i = index" [value]="i">
+                <mat-select formControlName="subCategoryIndex" name="subCategory" 
+                [compareWith]="objectComparisonFunction" required>
+                    <mat-option *ngFor="let subCategory of subCategories; let i = index" [value]="subCategory">
                         {{subCategory.title}}
                     </mat-option>
                 </mat-select>
@@ -47,8 +49,10 @@
               </mat-form-field>
               <mat-form-field class="mr-3">
                 <mat-label>Grad</mat-label>
-                <mat-select formControlName="cityIndex" name="city" required>
-                    <mat-option *ngFor="let city of cities; let i = index" [value]="i">
+                <mat-select formControlName="cityIndex" name="city" 
+                [compareWith]="objectComparisonFunction"
+                required>
+                    <mat-option *ngFor="let city of cities; let i = index" [value]="city">
                         {{city.name}}
                     </mat-option>
                 </mat-select>

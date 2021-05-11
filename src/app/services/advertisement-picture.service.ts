@@ -15,10 +15,14 @@ export class AdvertisementPictureService {
   }
 
   save(file: any, advertisementId: Number) {
-    return this.http.post(this.url + "advertisementPictures/"+advertisementId,  file );
+    return this.http.post(this.url + "advertisementPictures/"+advertisementId,  file ,{ responseType: 'text' });
   }
 
   getAllByAdvertId(id: Number) {
     return this.http.get(this.url + "advertisementPictures/getAllByAdvertisementId/"+id);
+  }
+
+  setPrimary(advertisementId: Number,id: Number) {
+    return this.http.put(this.url + "advertisementPictures/setPrimary/"+advertisementId+"/"+id,{});
   }
 }

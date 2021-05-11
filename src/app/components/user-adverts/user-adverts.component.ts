@@ -38,12 +38,33 @@ export class UserAdvertsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((response:any) => {
       if(response) {
         this.getOwnedAdvertisements();
-        this.snackBar.open('Uspešno napravljen oglas', 'Fechar', {
+        this.snackBar.open('Uspešno napravljen oglas', '', {
           duration: 5000,
         });
       }
     })
   }
+
+  editAdvert(advertisement: Advertisement) {
+    console.log(advertisement)
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      mode: 'edit',
+      advertisement: advertisement
+    }
+    dialogConfig.autoFocus = false;
+    dialogConfig.minWidth = "50%";
+    const dialogRef = this.dialog.open(AdvertEditComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe((response:any) => {
+      if(response) {
+        this.getOwnedAdvertisements();
+        this.snackBar.open('Uspešno promenjen oglas', '', {
+          duration: 5000,
+        });
+      }
+    })
+  }
+
 
   getOwnedAdvertisements() {
     this._advertisementService.getAllByOwned().subscribe((response: any) => {

@@ -1,26 +1,44 @@
 <mat-dialog-content>
 	<div class="container-fluid">
         <div class="row d-flex justify-content-center">
+            <div class="col-12">
+                <h2 mat-dialog-title>Slike oglasa</h2>
+            </div>
             <div class="col-auto picture-col">
                 <img [src]="selectedPicture.picture | sanitizer" alt="userProfilePicture" class="edit-picture" *ngIf="selectedPicture">
             </div>
             <div class="col-4 d-flex flex-column my-auto">
+                <button mat-mini-fab aria-label="Cancel" color="warn" *ngIf="selectedPicture" class="ml-auto mb-3" (click)="cancelPicture()">
+                    <mat-icon>close</mat-icon>
+                  </button>
                 <input style="display: none;" type="file" #fileInput 
                 (click)="onUploadClick($event)" accept="image/*"
                 (change)="onChangeFile($event)">
                 <button mat-raised-button class="my-2" (click)="fileInput.click()"
-                *ngIf="!selectedPicture; else pictureSelected">Upload sliku</button>
-                <ng-template #pictureSelected>
-                    <button mat-raised-button class="my-2" (click)="savePicture()">Sačuvaj</button>
-                    <button mat-raised-button class="my-2" (click)="deletePicture()">Obriši</button>
-                </ng-template>
+                *ngIf="!selectedPicture">Upload sliku</button>
+                <button mat-raised-button class="my-2" (click)="savePicture()" 
+                *ngIf="selectedPicture?.picture && selectedPicture?.file">
+                    Sačuvaj
+                </button>
+                <button mat-raised-button class="my-2" (click)="makePrimary(selectedPicture.pictureId)" 
+                *ngIf="selectedPicture?.pictureId && !selectedPicture?.primaryPic">
+                    Stavi kao glavnu sliku
+                </button>
+                <button mat-raised-button class="my-2" (click)="deletePicture()" *ngIf="selectedPicture?.picture">
+                    Obriši
+                </button>
+                
             </div>
         </div>
         <div class="row mt-3">
             <div class="col-12">
-                <ng-container *ngFor="let pic of pictures">
-                    <img [src]="pic.pictureBlob | sanitizer" alt="" class="picture-in-row"  *ngIf="pic.pictureBlob">
-                </ng-container>
+                <mat-divider></mat-divider>
+                <h2 class="mb-1 mt-2 text-center">Postojeće slike oglasa</h2>
+            </div>
+            <div *ngFor="let pic of pictures" class="col-auto mb-2">
+                <img [src]="pic.pictureBlob | sanitizer" alt="" class="picture-in-row"  
+                *ngIf="pic.pictureBlob" (click)="selectExistingPicture(pic)">
+                <p class="font-weight-bold primary-pic" *ngIf="pic.primaryPic">Glavna fotografija</p>
             </div>
         </div>
     </div>

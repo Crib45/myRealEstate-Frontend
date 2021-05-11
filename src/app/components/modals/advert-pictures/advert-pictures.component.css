@@ -5,7 +5,20 @@
 }
 
 .picture-in-row {
-    height: 150px;
+    max-height: 150px;
     max-width: 150px;
     object-fit: contain;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.primary-pic {
+    border: 2px rgb(180, 180, 26);
+}
+
+.picture-in-row:hover {
+    -webkit-box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.39); 
+    box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.39);
+    cursor: pointer;
+    transition: width 2s, height 2s;
+    
 }

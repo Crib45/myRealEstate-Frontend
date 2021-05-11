@@ -19,6 +19,7 @@ export class AdvertEditComponent implements OnInit {
   cities: any[] = [];
   isLinear: boolean = true;
   mode: string = '';
+  editAdvertisement: Advertisement;
 
   firstFormGroup: FormGroup = new FormGroup({
     title: new FormControl('', [Validators.required]),
@@ -42,6 +43,18 @@ export class AdvertEditComponent implements OnInit {
     private dialogRef: MatDialogRef<AdvertEditComponent>,
     @Inject(MAT_DIALOG_DATA) data: any) {
     this.mode = data.mode;
+    console.log( data.advertisement)
+    this.editAdvertisement = data.advertisement;
+    if(this.mode == 'edit' && data.advertisement) {
+      this.formOne.title.setValue(data.advertisement.title);
+      this.formOne.size.setValue(data.advertisement.estate.size);
+      this.formOne.categoryIndex.setValue(data.advertisement.estate.subCategory.category);
+      this.formOne.subCategoryIndex.setValue(data.advertisement.estate.subCategory);
+      this.formOne.price.setValue(data.advertisement.price);
+      this.formTwo.cityIndex.setValue(data.advertisement.estate.city);
+      this.formTwo.expireDate.setValue(data.advertisement.expireDate);
+      this.formTwo.description.setValue(data.advertisement.description);
+    }
   }
 
   ngOnInit(): void {
@@ -61,11 +74,17 @@ export class AdvertEditComponent implements OnInit {
   getCategories() {
     this._categoryService.getAllCategories().subscribe((response: any) => {
       this.categories = response;
+      if(this.mode == 'edit' && this.editAdvertisement) {
+        this.getAllSubCategoryByCategoryId();
+      }
     })
   }
 
   getAllSubCategoryByCategoryId() {
-    this._subCategoryService.getSubCategoriesByCategoryId(this.categories[this.formOne.categoryIndex.value].id).subscribe((response: any) => {
+    // let categoryId = this.categories[this.formOne.categoryIndex.value].id;
+    let categoryId = this.formOne.categoryIndex.value.id
+    console.log(this.formOne.categoryIndex.value)
+    this._subCategoryService.getSubCategoriesByCategoryId(categoryId).subscribe((response: any) => {
       this.subCategories = response;
     });
   }
@@ -89,6 +108,9 @@ export class AdvertEditComponent implements OnInit {
     saveAdvert() {
       let advertisement: Advertisement = new Advertisement();
       console.log(advertisement);
+      if(this.mode == 'edit') {
+        advertisement.id = this.editAdvertisement.id;
+      }
       advertisement.title = this.formOne.title.value;
       advertisement.description = this.formTwo.description.value,
       advertisement.finished = false;
@@ -96,13 +118,19 @@ export class AdvertEditComponent implements OnInit {
       advertisement.expireDate = (<Date>this.formTwo.expireDate.value).getTime();
       advertisement.estate = {
         size: this.formOne.size.value,
-        city: this.cities[this.formTwo.cityIndex.value],
-        subCategory: this.subCategories[this.formOne.subCategoryIndex.value]
+        // city: this.cities[this.formTwo.cityIndex.value],
+        city: this.formTwo.cityIndex.value,
+        // subCategory: this.subCategories[this.formOne.subCategoryIndex.value]
+        subCategory: this.formOne.subCategoryIndex.value
       };
       console.log(advertisement)
       this._advertisementService.save(advertisement).subscribe(response => {
         this.dialogRef.close(true);
       })
+    }
+
+    public objectComparisonFunction = function( option: any, value: any ) : boolean {
+      return option.id === value.id;
     }
 
 }

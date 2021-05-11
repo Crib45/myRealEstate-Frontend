@@ -34,7 +34,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { AdvertEditComponent } from './components/modals/advert-edit/advert-edit.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { DateAdapter, MatDateFormats, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { registerLocaleData } from '@angular/common';
 import localeSr from '@angular/common/locales/sr';
 import { ConfirmationDialogComponent } from './components/modals/confirmation-dialog/confirmation-dialog.component';

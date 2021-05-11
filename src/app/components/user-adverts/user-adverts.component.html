@@ -32,7 +32,7 @@
                 <ng-container matColumnDef="edit">
                     <th mat-header-cell *matHeaderCellDef>Izmeni</th>
                     <td mat-cell *matCellDef="let element">
-                        <button mat-icon-button color="primary" aria-label="Izmeni oglas">
+                        <button mat-icon-button color="primary" aria-label="Izmeni oglas" (click)="editAdvert(element)">
                             <mat-icon>edit</mat-icon>
                         </button>
                     </td>
