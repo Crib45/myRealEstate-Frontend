@@ -39,6 +39,7 @@ import { registerLocaleData } from '@angular/common';
 import localeSr from '@angular/common/locales/sr';
 import { ConfirmationDialogComponent } from './components/modals/confirmation-dialog/confirmation-dialog.component';
 import { AdvertPicturesComponent } from './components/modals/advert-pictures/advert-pictures.component';
+import {MatSliderModule} from '@angular/material/slider';
 registerLocaleData(localeSr);
 
 @NgModule({
@@ -81,7 +82,8 @@ registerLocaleData(localeSr);
     MatStepperModule,
     MatDialogModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSliderModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS,

@@ -1,5 +1,53 @@
 <div class="container-fluid category-wrap mt-5 mb-5">
-    <mat-tab-group mat-align-tabs="center">
-        <mat-tab *ngFor="let subcategory of subcategories" [label]="subcategory.title">Content 1</mat-tab>
+  <div class="row">
+    <div class="col-xl-2 col-3 search-params-container">
+      <h2 class="text-center mt-2">Filteri</h2>
+      <mat-label>Maksimalna cena: <span class="font-weight-bold">{{ (maxPrice | currency:'EUR':'symbol') || ''}}</span></mat-label>
+      <div>
+        <mat-slider min="0" max="500000" step="1000" [(ngModel)]="maxPrice" 
+        value="1.5" [displayWith]="formatLabel" thumbLabel></mat-slider>
+      </div>
+      <mat-form-field>
+        <mat-label>Naziv oglasa</mat-label>
+        <input matInput type="text" [(ngModel)]="titleSearch">
+        <button mat-button *ngIf="titleSearch" matSuffix mat-icon-button aria-label="Clear" (click)="titleSearch=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <div class="row g-0">
+        <div class="col-6">
+          <mat-form-field>
+            <mat-label>Minimalna veličina</mat-label>
+            <input matInput type="number" [(ngModel)]="minSize">
+            <button mat-button *ngIf="minSize" matSuffix mat-icon-button aria-label="Clear" (click)="minSize=0">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field>
+            <mat-label>Maksimalna veličina</mat-label>
+            <input matInput type="number" [(ngModel)]="maxSize" [min]="minSize">
+            <button mat-button *ngIf="maxSize" matSuffix mat-icon-button aria-label="Clear" (click)="maxSize=0">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-6">
+          <button mat-stroked-button color="primary">Poništi</button>
+        </div>
+        <div class="col-6 d-flex justify-content-end">
+          <button mat-flat-button color="primary">Pretraži</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-10 col-9">
+      <mat-tab-group mat-align-tabs="center">
+        <mat-tab *ngFor="let subcategory of subcategories" [label]="subcategory.title">
+        </mat-tab>
       </mat-tab-group>
+    </div>
+  </div>
 </div>

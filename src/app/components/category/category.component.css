@@ -2,3 +2,12 @@
     width: 90%;
     margin:auto;
 }
+
+.search-params-container {
+    background-color: #b5b2bb42;
+    border-radius: 10px;
+}
+
+mat-slider, mat-form-field {
+    width: 100%;
+}

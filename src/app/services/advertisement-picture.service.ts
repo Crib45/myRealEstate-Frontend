@@ -25,4 +25,8 @@ export class AdvertisementPictureService {
   setPrimary(advertisementId: Number,id: Number) {
     return this.http.put(this.url + "advertisementPictures/setPrimary/"+advertisementId+"/"+id,{});
   }
+
+  getPrimaryByAdvertisementId(advertisementId: Number) {
+    return this.http.get(this.url + "advertisementPictures/getPrimaryByAdvertisementId/"+advertisementId);
+  }
 }

@@ -27,4 +27,8 @@ export class AdvertisementService {
   getAllByOwned() {
     return this.http.get(this.url + "advertisement/getAllByLogged");
   }
+
+  getAllPublishedBySubCategoryId(subcategoryId: Number) {
+    return this.http.get(this.url + "advertisement/getAllPublishedBySubCategoryId/" + subcategoryId);
+  }
 }

@@ -43,7 +43,6 @@ export class AdvertEditComponent implements OnInit {
     private dialogRef: MatDialogRef<AdvertEditComponent>,
     @Inject(MAT_DIALOG_DATA) data: any) {
     this.mode = data.mode;
-    console.log( data.advertisement)
     this.editAdvertisement = data.advertisement;
     if(this.mode == 'edit' && data.advertisement) {
       this.formOne.title.setValue(data.advertisement.title);
@@ -52,7 +51,7 @@ export class AdvertEditComponent implements OnInit {
       this.formOne.subCategoryIndex.setValue(data.advertisement.estate.subCategory);
       this.formOne.price.setValue(data.advertisement.price);
       this.formTwo.cityIndex.setValue(data.advertisement.estate.city);
-      this.formTwo.expireDate.setValue(data.advertisement.expireDate);
+      this.formTwo.expireDate.setValue(new Date(data.advertisement.expireDate));
       this.formTwo.description.setValue(data.advertisement.description);
     }
   }
@@ -82,8 +81,7 @@ export class AdvertEditComponent implements OnInit {
 
   getAllSubCategoryByCategoryId() {
     // let categoryId = this.categories[this.formOne.categoryIndex.value].id;
-    let categoryId = this.formOne.categoryIndex.value.id
-    console.log(this.formOne.categoryIndex.value)
+    let categoryId = this.formOne.categoryIndex.value.id;
     this._subCategoryService.getSubCategoriesByCategoryId(categoryId).subscribe((response: any) => {
       this.subCategories = response;
     });
@@ -107,7 +105,6 @@ export class AdvertEditComponent implements OnInit {
 
     saveAdvert() {
       let advertisement: Advertisement = new Advertisement();
-      console.log(advertisement);
       if(this.mode == 'edit') {
         advertisement.id = this.editAdvertisement.id;
       }
@@ -123,7 +120,6 @@ export class AdvertEditComponent implements OnInit {
         // subCategory: this.subCategories[this.formOne.subCategoryIndex.value]
         subCategory: this.formOne.subCategoryIndex.value
       };
-      console.log(advertisement)
       this._advertisementService.save(advertisement).subscribe(response => {
         this.dialogRef.close(true);
       })
