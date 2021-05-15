@@ -44,8 +44,38 @@
       </div>
     </div>
     <div class="col-xl-10 col-9">
-      <mat-tab-group mat-align-tabs="center">
+      <mat-tab-group mat-align-tabs="center" (selectedTabChange)="onTabChange($event)">
         <mat-tab *ngFor="let subcategory of subcategories" [label]="subcategory.title">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-3 my-3 col123"  *ngFor="let advert of advertisements">
+                <mat-card>
+                  <mat-card-header>
+                      <mat-card-title>{{ advert.advertisement.title }} - {{ advert?.advertisement?.price | currency:'EUR':'symbol' }}</mat-card-title>
+                  </mat-card-header>
+                  <ng-container *ngIf="advert.primaryPic">
+                    <img mat-card-image [src]="advert.primaryPic | sanitizer" alt="Photo of a Shiba Inu">
+                  </ng-container>
+                  <mat-card-content>
+                      <p>{{ advert.advertisement.description }}</p>
+                  </mat-card-content>
+                  <mat-card-actions class="d-flex justify-content-between">
+                      <button mat-raised-button color="primary" class="mr-2" [routerLink]="['/advert', advert.advertisement.id]">
+                          Pregled oglasa
+                      </button>
+                      <button mat-mini-fab *ngIf="!advert.favoriteAd"
+                      aria-label="Put advert as favorite" color="primary" (click)="setFavorite(advert)">
+                          <mat-icon>favorite</mat-icon>
+                      </button>
+                      <button mat-mini-fab *ngIf="advert.favoriteAd"
+                      aria-label="Put advert as favorite" color="warn" (click)="removeFavorite(advert)">
+                          <mat-icon>favorite</mat-icon>
+                      </button>
+                  </mat-card-actions>
+                </mat-card>
+              </div>
+            </div>
+          </div>
         </mat-tab>
       </mat-tab-group>
     </div>

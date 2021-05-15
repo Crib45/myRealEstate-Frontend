@@ -11,3 +11,7 @@
 mat-slider, mat-form-field {
     width: 100%;
 }
+
+.col123 {
+    min-width: 250px !important;
+}
