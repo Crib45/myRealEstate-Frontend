@@ -40,6 +40,7 @@ import localeSr from '@angular/common/locales/sr';
 import { ConfirmationDialogComponent } from './components/modals/confirmation-dialog/confirmation-dialog.component';
 import { AdvertPicturesComponent } from './components/modals/advert-pictures/advert-pictures.component';
 import {MatSliderModule} from '@angular/material/slider';
+import { AdvertisementFilterPipe } from './pipes/advertisement-filter.pipe';
 registerLocaleData(localeSr);
 
 @NgModule({
@@ -57,7 +58,8 @@ registerLocaleData(localeSr);
     UserAdvertsComponent,
     AdvertEditComponent,
     ConfirmationDialogComponent,
-    AdvertPicturesComponent
+    AdvertPicturesComponent,
+    AdvertisementFilterPipe
   ],
   imports: [
     BrowserModule,

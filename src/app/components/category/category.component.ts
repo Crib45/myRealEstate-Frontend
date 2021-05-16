@@ -24,7 +24,7 @@ export class CategoryComponent implements OnInit {
   maxPrice: number = 0;
   minSize: number = 0;
   maxSize: number = 0;
-  titleSearch: String = '';
+  titleSearch: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -112,11 +112,17 @@ export class CategoryComponent implements OnInit {
     if(!this._authService.isLoggedIn()) {
       this.router.navigate(['/login']);
     }
-    this._favoriteAd.saveFavorite(advertisementDTO.advertisement).subscribe(response => {
-      advertisementDTO.favoriteAd = response;
-    })
+    else {
+      this._favoriteAd.saveFavorite(advertisementDTO.advertisement).subscribe(response => {
+        advertisementDTO.favoriteAd = response;
+      })
+    }
   }
 
+  /**
+   * Removes FavoriteAd by id
+   * @param advertisementDTO 
+   */
   removeFavorite(advertisementDTO: AdvertisementDTO) {
     this._favoriteAd.delete(advertisementDTO.favoriteAd.id).subscribe(response => {
       if(response == "Success")

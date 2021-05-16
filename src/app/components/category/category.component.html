@@ -38,9 +38,9 @@
         <div class="col-6">
           <button mat-stroked-button color="primary">Poništi</button>
         </div>
-        <div class="col-6 d-flex justify-content-end">
+        <!-- <div class="col-6 d-flex justify-content-end">
           <button mat-flat-button color="primary">Pretraži</button>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="col-xl-10 col-9">
@@ -48,16 +48,23 @@
         <mat-tab *ngFor="let subcategory of subcategories" [label]="subcategory.title">
           <div class="container-fluid">
             <div class="row">
-              <div class="col-3 my-3 col123"  *ngFor="let advert of advertisements">
+              <div class="col-3 my-3 col123"  *ngFor="let advert of advertisements | advertisementFilter:maxPrice:titleSearch:minSize:maxSize">
                 <mat-card>
                   <mat-card-header>
-                      <mat-card-title>{{ advert.advertisement.title }} - {{ advert?.advertisement?.price | currency:'EUR':'symbol' }}</mat-card-title>
+                      <mat-card-title>{{ advert.advertisement.title }}</mat-card-title>
                   </mat-card-header>
                   <ng-container *ngIf="advert.primaryPic">
                     <img mat-card-image [src]="advert.primaryPic | sanitizer" alt="Photo of a Shiba Inu">
                   </ng-container>
                   <mat-card-content>
-                      <p>{{ advert.advertisement.description }}</p>
+                      <div class="d-flex justify-content-between container-fluid font-weight-bold">
+                        <span>
+                          Cena:&nbsp;{{ advert.advertisement?.price | currency:'EUR':'symbol' }}
+                        </span>
+                        <span>
+                          Veličina:&nbsp;{{ advert.advertisement?.estate?.size | number }}&nbsp;&#13217;
+                        </span>
+                      </div>
                   </mat-card-content>
                   <mat-card-actions class="d-flex justify-content-between">
                       <button mat-raised-button color="primary" class="mr-2" [routerLink]="['/advert', advert.advertisement.id]">
