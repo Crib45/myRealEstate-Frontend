@@ -80,7 +80,6 @@ export class AdvertEditComponent implements OnInit {
   }
 
   getAllSubCategoryByCategoryId() {
-    // let categoryId = this.categories[this.formOne.categoryIndex.value].id;
     let categoryId = this.formOne.categoryIndex.value.id;
     this._subCategoryService.getSubCategoriesByCategoryId(categoryId).subscribe((response: any) => {
       this.subCategories = response;
@@ -115,9 +114,7 @@ export class AdvertEditComponent implements OnInit {
       advertisement.expireDate = (<Date>this.formTwo.expireDate.value).getTime();
       advertisement.estate = {
         size: this.formOne.size.value,
-        // city: this.cities[this.formTwo.cityIndex.value],
         city: this.formTwo.cityIndex.value,
-        // subCategory: this.subCategories[this.formOne.subCategoryIndex.value]
         subCategory: this.formOne.subCategoryIndex.value
       };
       this._advertisementService.save(advertisement).subscribe(response => {

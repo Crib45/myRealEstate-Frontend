@@ -15,11 +15,19 @@ export class UserService {
   //test acc email test@test.com pass:123123
 
   register(user: User) {
-    return this.http.post(this.url + "user/register",  user );
+    return this.http.post(this.url + "user/register",  user, { responseType: 'text' } );
+  }
+
+  save(user: User) {
+    return this.http.post(this.url + "user",  user, { responseType: 'text' } );
   }
 
   getLoggedUser() {
     return this.http.get(this.url + "user/getLoggedUser");
+  }
+
+  getById(id:number) {
+    return this.http.get(this.url + "user/getById/"+id);
   }
 
 

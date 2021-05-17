@@ -26,6 +26,8 @@ export class HeaderComponent implements OnInit {
   openProfile() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
+      mode:'edit',
+      userId: null
     }
     dialogConfig.minWidth = "500px";
     const dialogRef = this.dialog.open(ProfileEditComponent, dialogConfig);

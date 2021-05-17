@@ -1,7 +1,79 @@
 <mat-dialog-content>
-    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center mb-2 align-items-center flex-column">
+                <input style="display: none;" type="file" #fileInput 
+                (click)="onUploadClick($event)" accept="image/*"
+                (change)="onChangeFile($event)">
+                <div>
+                     <img src="/../../assets/placeholderProfileImg.png" alt="userProfilePicture" class="profilo-picture-user" *ngIf="!selectedPicture">
+                     <img [src]="selectedPicture.picture | sanitizer" alt="userProfilePicture" 
+                     class="profilo-picture-user" *ngIf="selectedPicture && selectedPicture.picture">
+                </div>
+                <button mat-stroked-button color="primary" class="mt-2" aria-label="Example icon button with a home icon" (click)="fileInput.click()">
+                   Upload <mat-icon>upload</mat-icon>
+                  </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto">
+                <mat-form-field appearance="outline">
+                    <mat-label>
+                        Ime
+                    </mat-label>
+                    <input matInput disabled [(ngModel)]="user.firstName" />
+                </mat-form-field>
+            </div>
+            <div class="col-auto">
+                <mat-form-field appearance="outline">
+                    <mat-label>
+                        Prezime
+                    </mat-label>
+                    <input matInput disabled [(ngModel)]="user.lastName" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto">
+                <mat-form-field appearance="outline">
+                    <mat-label>
+                        Email
+                    </mat-label>
+                    <input matInput [(ngModel)]="user.email" [disabled]="mode == 'info'"  />
+                </mat-form-field>
+            </div>
+            <div class="col-auto">
+                <mat-form-field appearance="outline">
+                    <mat-label>Broj telefona</mat-label>
+                    <input matInput [(ngModel)]="user.phone" [disabled]="mode == 'info'"  />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto">
+                <mat-form-field  appearance="outline" style="width: 201px;">
+                    <mat-label>Datum registracije</mat-label>
+                    <input matInput [matDatepicker]="picker" [(ngModel)]="user.createdAt" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+            </div>
+            <div class="col-auto">
+                <mat-form-field appearance="outline">
+                    <mat-label>Grad</mat-label>
+                    <mat-select [(ngModel)]="user.city" name="city" 
+                    [compareWith]="objectComparisonFunction"
+                    required>
+                        <mat-option *ngFor="let city of cities; let i = index" [value]="city">
+                            {{city.name}}
+                        </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+        </div>
+    </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-raised-button tabindex="1">Potvrdi</button>
+    <button mat-raised-button tabindex="1" *ngIf="mode== 'edit'" (click)="saveUser()">Potvrdi</button>
 	<button mat-raised-button mat-dialog-close tabindex="1">Zatvori</button>
 </mat-dialog-actions>

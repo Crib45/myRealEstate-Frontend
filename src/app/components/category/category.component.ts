@@ -129,4 +129,11 @@ export class CategoryComponent implements OnInit {
         advertisementDTO.favoriteAd = null;
     })
   }
+
+  resetFilters() {
+    this.maxPrice = 0;
+    this.minSize = 0;
+    this.maxSize = 0;
+    this.titleSearch= '';
+  }
 }

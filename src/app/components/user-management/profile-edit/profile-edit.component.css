@@ -1,0 +1,7 @@
+.profilo-picture-user{
+    width: 156px;
+    height: 156px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 50%;
+}

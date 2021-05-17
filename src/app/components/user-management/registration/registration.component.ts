@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { TelNumber } from 'src/app/models/TelNumber';
 import { User } from 'src/app/models/User';
 import { CityService } from 'src/app/services/city.service';
@@ -36,7 +38,9 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private _cityService: CityService,
-    private _userService: UserService
+    private _userService: UserService,
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -68,7 +72,18 @@ export class RegistrationComponent implements OnInit {
       parseInt(this.form.tel.value.area + this.form.tel.value.exchange + this.form.tel.value.subscriber)
     )
     this._userService.register(user).subscribe(response => {
+      if(response == "Success") {
+        this.openSnackBar("Uspešna registracija", "Zatvori");
+        this._userService.getLoggedUser().subscribe(response => {
+        })
+        this.router.navigate(['']);
+      }
     })
   }
 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
 }
