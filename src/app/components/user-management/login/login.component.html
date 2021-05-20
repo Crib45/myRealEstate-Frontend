@@ -1,17 +1,24 @@
-<form class="login-wrapper purple-border mx-auto d-flex flex-column justify-content-center mt-5" 
-[formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <h1 class="mat-display-1 mx-auto mt-3">Login</h1>
-    <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email">
-    </mat-form-field>
-    <mat-form-field appearance="fill" class="mb-3">
-        <mat-label>Lozinka</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-    </mat-form-field>
-    <button mat-raised-button color="primary" class="mb-3" [disabled]="!loginForm.valid" type="submit">Prijavite se</button>
-</form>
+<div class="login-wrapper mt-5">
+    <div class="container background-img rounded">
+        <div class="row">
+            <div class="col-6 ml-auto form-container my-2 mr-2 rounded">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mx-auto d-flex flex-column justify-content-center mt-5">
+                    <h1 class="mat-display-1 mx-auto font-weight-bold"><u>Login</u></h1>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="mb-3">
+                        <mat-label>Lozinka</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" class="mb-3" [disabled]="!loginForm.valid" type="submit">Prijavite se</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

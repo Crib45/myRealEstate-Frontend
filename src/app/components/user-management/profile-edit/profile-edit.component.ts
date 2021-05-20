@@ -3,12 +3,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CityService } from 'src/app/services/city.service';
 import { PictureService } from 'src/app/services/picture.service';
+import { ProfileCommentsService } from 'src/app/services/profile-comments.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.component.html',
-  styleUrls: ['./profile-edit.component.css']
+  styleUrls: ['./profile-edit.component.css'],
 })
 export class ProfileEditComponent implements OnInit {
 
@@ -18,11 +19,16 @@ export class ProfileEditComponent implements OnInit {
   cities: any[] = [];
   selectedPicture: any;
   pictureChanged:boolean = false;
+  currentRate: number = 0;
+  currentComment: string = "";
+  comments: any[]= [];
+  averageRating: number = 0;
 
   constructor(
     private dialogRef: MatDialogRef<ProfileEditComponent>,
     private _userService: UserService,
     private _pictureService: PictureService,
+    private _profileCommentsService: ProfileCommentsService,
     private snackBar: MatSnackBar,
     private _cityService: CityService,
     @Inject(MAT_DIALOG_DATA) data: any) {
@@ -40,23 +46,25 @@ export class ProfileEditComponent implements OnInit {
     else if(this.mode='info') {
 
     }
-
   }
 
   getLogged() {
     this._userService.getLoggedUser().subscribe(response => {
-      this.user = response;
-      this.user.createdAt = new Date(this.user.createdAt);
-      this.getProfilePicture(this.user.id);
+      this.setUser(response);
     })
   }
 
   getById(id:number) {
     this._userService.getById(id).subscribe(response => {
-      this.user = response;
-      this.user.createdAt = new Date(this.user.createdAt);
-      this.getProfilePicture(this.user.id);
+      this.setUser(response);
     })
+  }
+
+  setUser(response: any){
+    this.user = response;
+    this.user.createdAt = new Date(this.user.createdAt);
+    this.getUserComments(this.user.id);
+    this.getProfilePicture(this.user.id);
   }
 
   getAllCities(): any {
@@ -73,8 +81,8 @@ export class ProfileEditComponent implements OnInit {
   }
 
   saveUser() {
-    this.savePicture();
     this._userService.save(this.user).subscribe(response => {
+      this.savePicture();
       this.snackBar.open('Uspešno promenjeni podaci', undefined, {
         duration: 2000,
       });
@@ -125,5 +133,36 @@ export class ProfileEditComponent implements OnInit {
         console.log(this.selectedPicture)
       }
     }
+  }
+
+  saveComment() {
+    let comment = {
+      comment: this.currentComment,
+      grade: this.currentRate,
+      madeFor: this.user
+    }
+    this._profileCommentsService.save(comment).subscribe((response: any) => {
+      this.comments = response;
+      this.averageRating = this.getAverageRating();
+    })
+  }
+
+  getUserComments(userId: number) {
+    this._profileCommentsService.getCommentedOn(userId).subscribe((response: any) => {
+      this.comments = response;
+      this.averageRating = this.getAverageRating();
+    })
+  }
+
+  getAverageRating():number {
+    let amountOfGrades:number = 0;
+    let gradeTotal:number = 0;
+    this.comments.forEach(element => {
+      if(element.grade !== null || element.grade !== undefined) {
+        amountOfGrades++;
+        gradeTotal += element.grade;
+      }
+    });
+    return (Math.round((gradeTotal/amountOfGrades) * 100) / 100);
   }
 }

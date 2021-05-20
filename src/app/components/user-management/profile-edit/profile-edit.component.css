@@ -5,3 +5,31 @@
     overflow: hidden;
     border-radius: 50%;
 }
+
+.star {
+    position: relative;
+    display: inline-block;
+    font-size: 2rem;
+    color: #d3d3d3;
+  }
+
+  .filled {
+    color: #673AB7;
+  }
+
+  .comments-container mat-form-field {
+      width: 100%;
+  }
+
+  .comment-border {
+    border-color: #673AB7 !important;
+  }
+
+  .small-font {
+    font-size: 12px;
+  }
+
+  .comment-text {
+    max-height: 70px;
+    overflow-y: auto;
+  }

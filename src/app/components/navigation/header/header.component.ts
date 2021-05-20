@@ -29,7 +29,9 @@ export class HeaderComponent implements OnInit {
       mode:'edit',
       userId: null
     }
-    dialogConfig.minWidth = "500px";
+    dialogConfig.width = "550px";
+    dialogConfig.minHeight = "500px";
+    // dialogConfig.maxHeight = "600px";
     const dialogRef = this.dialog.open(ProfileEditComponent, dialogConfig);
   }
 

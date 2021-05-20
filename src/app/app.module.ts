@@ -41,6 +41,8 @@ import { ConfirmationDialogComponent } from './components/modals/confirmation-di
 import { AdvertPicturesComponent } from './components/modals/advert-pictures/advert-pictures.component';
 import {MatSliderModule} from '@angular/material/slider';
 import { AdvertisementFilterPipe } from './pipes/advertisement-filter.pipe';
+import { NgbModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { AdvertViewComponent } from './components/advert-view/advert-view.component';
 registerLocaleData(localeSr);
 
 @NgModule({
@@ -59,7 +61,8 @@ registerLocaleData(localeSr);
     AdvertEditComponent,
     ConfirmationDialogComponent,
     AdvertPicturesComponent,
-    AdvertisementFilterPipe
+    AdvertisementFilterPipe,
+    AdvertViewComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +88,8 @@ registerLocaleData(localeSr);
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSliderModule
+    MatSliderModule,
+    NgbRatingModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS,

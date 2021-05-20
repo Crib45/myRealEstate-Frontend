@@ -1,79 +1,128 @@
 <mat-dialog-content>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 d-flex justify-content-center mb-2 align-items-center flex-column">
-                <input style="display: none;" type="file" #fileInput 
-                (click)="onUploadClick($event)" accept="image/*"
-                (change)="onChangeFile($event)">
-                <div>
-                     <img src="/../../assets/placeholderProfileImg.png" alt="userProfilePicture" class="profilo-picture-user" *ngIf="!selectedPicture">
-                     <img [src]="selectedPicture.picture | sanitizer" alt="userProfilePicture" 
-                     class="profilo-picture-user" *ngIf="selectedPicture && selectedPicture.picture">
+    <mat-tab-group mat-align-tabs="center" #matTabGroup>
+        <mat-tab label="Osnovni podaci">
+            <div class="container-fluid mt-2">
+                <div class="row justify-content-center">
+                    <div class="col-12 d-flex justify-content-center mb-2 align-items-center flex-column">
+                        <input style="display: none;" type="file" #fileInput 
+                        (click)="onUploadClick($event)" accept="image/*"
+                        (change)="onChangeFile($event)">
+                        <div>
+                             <img src="/../../assets/placeholderProfileImg.png" alt="userProfilePicture" 
+                             class="profilo-picture-user" *ngIf="!selectedPicture">
+                             <img [src]="selectedPicture.picture | sanitizer" alt="userProfilePicture" 
+                             class="profilo-picture-user" *ngIf="selectedPicture && selectedPicture.picture">
+                        </div>
+                        <button mat-stroked-button color="primary" class="mt-2" *ngIf="mode == 'edit'"
+                        aria-label="Example icon button with a home icon" (click)="fileInput.click()">
+                           Upload <mat-icon>upload</mat-icon>
+                          </button>
+                    </div>
                 </div>
-                <button mat-stroked-button color="primary" class="mt-2" aria-label="Example icon button with a home icon" (click)="fileInput.click()">
-                   Upload <mat-icon>upload</mat-icon>
-                  </button>
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <mat-form-field appearance="outline">
+                            <mat-label>
+                                Ime
+                            </mat-label>
+                            <input matInput disabled [(ngModel)]="user.firstName" />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-auto">
+                        <mat-form-field appearance="outline">
+                            <mat-label>
+                                Prezime
+                            </mat-label>
+                            <input matInput disabled [(ngModel)]="user.lastName" />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <mat-form-field appearance="outline">
+                            <mat-label>
+                                Email
+                            </mat-label>
+                            <input matInput [(ngModel)]="user.email" disabled />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-auto">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Broj telefona</mat-label>
+                            <input matInput [(ngModel)]="user.phone" [disabled]="mode == 'info'"  />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <mat-form-field  appearance="outline" style="width: 201px;">
+                            <mat-label>Datum registracije</mat-label>
+                            <input matInput [matDatepicker]="picker" [(ngModel)]="user.createdAt" disabled>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>
+                    </div>
+                    <div class="col-auto">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Grad</mat-label>
+                            <mat-select [(ngModel)]="user.city" name="city" 
+                            [compareWith]="objectComparisonFunction"
+                            required>
+                                <mat-option *ngFor="let city of cities; let i = index" [value]="city">
+                                    {{city.name}}
+                                </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-auto">
-                <mat-form-field appearance="outline">
-                    <mat-label>
-                        Ime
-                    </mat-label>
-                    <input matInput disabled [(ngModel)]="user.firstName" />
-                </mat-form-field>
+        </mat-tab>
+        <mat-tab label="Iskustva i ocene">
+            <div class="container-fluid comments-container">
+                <div class="row mt-2" *ngIf="mode == 'info'">
+                    <div class="col-12 font-weight-bold">Novi komentar</div>
+                    <div class="col-12">
+                        <ngb-rating [(rate)]="currentRate" [max]="5" class="mt-2 mb-1">
+                            <ng-template let-fill="fill" let-index="index">
+                                <span class="star" [class.filled]="fill === 100">&#9733;</span>
+                              </ng-template>
+                        </ngb-rating>
+                    </div>
+                    <div class="col-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Komentar</mat-label>
+                            <textarea matInput placeholder="Opis" [(ngModel)]="currentComment" maxlength="200"></textarea>
+                          </mat-form-field>
+                    </div>
+                    <div class="col-12">
+                        <button mat-raised-button tabindex="1" (click)="saveComment()" class="my-1">Postavi komentar</button>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12 font-weight-bold">Komentari</div>
+                    <div class="col-12 d-flex justify-content-between mt-1">
+                        <span>Ukupno komentara: <b>{{comments.length}}</b></span>
+                        <span>Prosečna ocena: <b>{{averageRating}}</b></span>
+                    </div>
+                </div>
+                <div class="row border my-2 comment-border rounded" *ngFor="let comment of comments">
+                    <div class="col-12 pt-1 comment-text">
+                        {{comment.comment}}
+                    </div>
+                    <div class="col-12 pt-2 d-flex justify-content-between small-font">
+                        <span>
+                            <span>{{comment.madeBy?.firstName}} {{comment.madeBy?.lastName}}&nbsp;-&nbsp;</span>
+                            <span>{{comment.createdAt | date: 'dd/MM/yyyy'}}</span>
+                        </span>
+                        <span>Ocena: <b>{{comment.grade}}</b></span>
+                    </div>
+
+                </div>
             </div>
-            <div class="col-auto">
-                <mat-form-field appearance="outline">
-                    <mat-label>
-                        Prezime
-                    </mat-label>
-                    <input matInput disabled [(ngModel)]="user.lastName" />
-                </mat-form-field>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-auto">
-                <mat-form-field appearance="outline">
-                    <mat-label>
-                        Email
-                    </mat-label>
-                    <input matInput [(ngModel)]="user.email" [disabled]="mode == 'info'"  />
-                </mat-form-field>
-            </div>
-            <div class="col-auto">
-                <mat-form-field appearance="outline">
-                    <mat-label>Broj telefona</mat-label>
-                    <input matInput [(ngModel)]="user.phone" [disabled]="mode == 'info'"  />
-                </mat-form-field>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-auto">
-                <mat-form-field  appearance="outline" style="width: 201px;">
-                    <mat-label>Datum registracije</mat-label>
-                    <input matInput [matDatepicker]="picker" [(ngModel)]="user.createdAt" disabled>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
-            </div>
-            <div class="col-auto">
-                <mat-form-field appearance="outline">
-                    <mat-label>Grad</mat-label>
-                    <mat-select [(ngModel)]="user.city" name="city" 
-                    [compareWith]="objectComparisonFunction"
-                    required>
-                        <mat-option *ngFor="let city of cities; let i = index" [value]="city">
-                            {{city.name}}
-                        </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            </div>
-        </div>
-    </div>
+        </mat-tab>
+    </mat-tab-group>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-    <button mat-raised-button tabindex="1" *ngIf="mode== 'edit'" (click)="saveUser()">Potvrdi</button>
+<mat-dialog-actions align="end" *ngIf="mode== 'edit'">
+    <button mat-raised-button tabindex="1"  (click)="saveUser()">Potvrdi</button>
 	<button mat-raised-button mat-dialog-close tabindex="1">Zatvori</button>
 </mat-dialog-actions>

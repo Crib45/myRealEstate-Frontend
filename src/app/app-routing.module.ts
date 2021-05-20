@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdvertViewComponent } from './components/advert-view/advert-view.component';
 import { CategoryComponent } from './components/category/category.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserAdvertsComponent } from './components/user-adverts/user-adverts.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'profile-edit', component: ProfileEditComponent },
   { path: 'category/:title', component: CategoryComponent },
   { path: 'my-adverts', component: UserAdvertsComponent },
+  { path: 'advert-view', component: AdvertViewComponent },
   { path: '**',   redirectTo: ''},
 ];
 
