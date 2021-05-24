@@ -1,0 +1,26 @@
+.adv-wrap {
+    width: 70%;
+    margin:auto;
+}
+
+.category-crumb {
+    font-size: 14px;
+}
+
+ngb-carousel, .img-wrapper{
+    width: 1060px;
+    height: 400px;
+}
+
+ngb-carousel img{
+ object-fit: contain;
+}
+
+  
+ngb-carousel .carousel-inner {
+    background-color:rgba(230, 222, 222, 0.9) !important;
+}
+
+.description-form {
+    width: 100%;
+}

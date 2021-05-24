@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'profile-edit', component: ProfileEditComponent },
   { path: 'category/:title', component: CategoryComponent },
   { path: 'my-adverts', component: UserAdvertsComponent },
-  { path: 'advert-view', component: AdvertViewComponent },
+  { path: 'advert/:id', component: AdvertViewComponent },
   { path: '**',   redirectTo: ''},
 ];
 

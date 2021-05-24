@@ -25,7 +25,7 @@
                             <mat-label>
                                 Ime
                             </mat-label>
-                            <input matInput disabled [(ngModel)]="user.firstName" />
+                            <input matInput readonly [(ngModel)]="user.firstName" />
                         </mat-form-field>
                     </div>
                     <div class="col-auto">
@@ -33,7 +33,7 @@
                             <mat-label>
                                 Prezime
                             </mat-label>
-                            <input matInput disabled [(ngModel)]="user.lastName" />
+                            <input matInput readonly [(ngModel)]="user.lastName" />
                         </mat-form-field>
                     </div>
                 </div>
@@ -43,13 +43,13 @@
                             <mat-label>
                                 Email
                             </mat-label>
-                            <input matInput [(ngModel)]="user.email" disabled />
+                            <input matInput [(ngModel)]="user.email" readonly />
                         </mat-form-field>
                     </div>
                     <div class="col-auto">
                         <mat-form-field appearance="outline">
                             <mat-label>Broj telefona</mat-label>
-                            <input matInput [(ngModel)]="user.phone" [disabled]="mode == 'info'"  />
+                            <input matInput [(ngModel)]="user.phone" [readonly]="mode == 'info'"  />
                         </mat-form-field>
                     </div>
                 </div>
@@ -57,29 +57,33 @@
                     <div class="col-auto">
                         <mat-form-field  appearance="outline" style="width: 201px;">
                             <mat-label>Datum registracije</mat-label>
-                            <input matInput [matDatepicker]="picker" [(ngModel)]="user.createdAt" disabled>
+                            <input matInput [matDatepicker]="picker" [(ngModel)]="user.createdAt" readonly>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-datepicker #picker disabled></mat-datepicker>
                           </mat-form-field>
                     </div>
+                    <!-- [ngClass]="{'d-none': (mode === 'info') }" -->
                     <div class="col-auto">
-                        <mat-form-field appearance="outline">
+                        <mat-form-field appearance="outline" *ngIf="mode == 'edit'">
                             <mat-label>Grad</mat-label>
                             <mat-select [(ngModel)]="user.city" name="city" 
-                            [compareWith]="objectComparisonFunction"
-                            required>
+                            [compareWith]="objectComparisonFunction">
                                 <mat-option *ngFor="let city of cities; let i = index" [value]="city">
                                     {{city.name}}
                                 </mat-option>
                             </mat-select>
-                          </mat-form-field>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" *ngIf="mode == 'info' && user && user.city">
+                            <mat-label>Grad</mat-label>
+                            <input matInput [(ngModel)]="user.city.name" readonly />
+                        </mat-form-field>
                     </div>
                 </div>
             </div>
         </mat-tab>
         <mat-tab label="Iskustva i ocene">
             <div class="container-fluid comments-container">
-                <div class="row mt-2" *ngIf="mode == 'info'">
+                <div class="row mt-2" *ngIf="mode == 'info' && _authService.isLoggedIn()">
                     <div class="col-12 font-weight-bold">Novi komentar</div>
                     <div class="col-12">
                         <ngb-rating [(rate)]="currentRate" [max]="5" class="mt-2 mb-1">

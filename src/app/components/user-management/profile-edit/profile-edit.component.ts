@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/services/auth.service';
 import { CityService } from 'src/app/services/city.service';
 import { PictureService } from 'src/app/services/picture.service';
 import { ProfileCommentsService } from 'src/app/services/profile-comments.service';
@@ -13,7 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProfileEditComponent implements OnInit {
 
-  mode: string = '';
+  mode: string = 'info';
   userId?: number;
   user: any = {};
   cities: any[] = [];
@@ -31,6 +32,7 @@ export class ProfileEditComponent implements OnInit {
     private _profileCommentsService: ProfileCommentsService,
     private snackBar: MatSnackBar,
     private _cityService: CityService,
+    public _authService: AuthService,
     @Inject(MAT_DIALOG_DATA) data: any) {
       this.mode = data.mode;
       if(this.mode == 'info') {
@@ -43,8 +45,8 @@ export class ProfileEditComponent implements OnInit {
     if(this.mode == 'edit') {
       this.getLogged();
     }
-    else if(this.mode='info') {
-
+    else if(this.mode =='info' && this.userId !== undefined && this.userId !== null) {
+      this.getById(this.userId);
     }
   }
 

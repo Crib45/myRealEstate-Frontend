@@ -31,4 +31,8 @@ export class AdvertisementService {
   getAllPublishedBySubCategoryId(subcategoryId: Number) {
     return this.http.get(this.url + "advertisement/getAllPublishedBySubCategoryId/" + subcategoryId);
   }
+
+  getById(id: number) {
+    return this.http.get(this.url + "advertisement/" + id);
+  }
 }

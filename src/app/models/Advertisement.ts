@@ -8,5 +8,6 @@ export class Advertisement {
     public published: boolean = false;
     public createdAt?: Number;
     public expireDate?: Number;
+    public owner: any;
     constructor(){}
 }

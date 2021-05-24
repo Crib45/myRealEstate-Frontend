@@ -1,1 +1,70 @@
-<p>advert-view works!</p>
+
+<div class="adv-wrap">
+    <mat-toolbar class="mt-5" color="primary">
+        <span class="mr-auto">{{advertisement.title}}</span>
+        <span class="category-crumb">
+            Kategorija: {{advertisement?.estate?.subCategory?.category?.title}} > {{advertisement?.estate?.subCategory?.title}}
+        </span>
+    </mat-toolbar>
+    <ngb-carousel #carousel [hidden]="pictures.length == 0" class="mt-2 mx-auto" [showNavigationArrows]="false" [interval]="0">
+        <ng-template ngbSlide *ngFor="let pic of pictures">
+            <div class="img-wrapper d-flex justify-content-center">
+                <img [src]="pic.pictureBlob | sanitizer" alt="Random first slide">
+              </div>
+        </ng-template>
+    </ngb-carousel>
+    <div class="container mat-h3">
+        <div class="row justify-content-center mt-1" *ngIf="pictures.length > 0">
+            <div class="col-auto">
+                <button mat-mini-fab color="primary" aria-label="nazad" (click)="goPreviousPic()">
+                    <mat-icon class="ml-2">arrow_back_ios</mat-icon>
+                </button>
+            </div>
+            <div class="col-auto">
+                <button mat-mini-fab color="primary" aria-label="napred" (click)="goNextPic()">
+                    <mat-icon>arrow_forward_ios</mat-icon>
+                  </button>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-1">
+                Cena:
+            </div>
+            <div class="col-auto">
+                <b>{{advertisement?.price | currency:'EUR':'symbol' }}</b>
+            </div>
+            <div class="col-auto ml-auto">
+                <span class="mat-h3">
+                Vlasnik oglasa: 
+                <b class="hover-pointer" (click)="openUserInfo()">
+                    {{advertisement?.owner?.firstName}} {{advertisement?.owner?.lastName}}
+                </b>
+                </span>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-1">
+                Veličina:
+            </div>
+            <div class="col-auto">
+                <b>{{advertisement?.estate?.size | number }}&nbsp;&#13217;</b>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-1">
+                Lokacija:
+            </div>
+            <div class="col-auto">
+                <b>{{advertisement?.estate?.city?.name}}</b>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-6">
+                <mat-form-field appearance="outline" class="description-form">
+                    <mat-label>Opis oglasa</mat-label>
+                    <textarea matInput placeholder="Opis" [(ngModel)]="advertisement.description" readonly></textarea>
+                  </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
