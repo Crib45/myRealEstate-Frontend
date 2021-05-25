@@ -91,4 +91,8 @@ export class AdvertPicturesComponent implements OnInit {
   cancelPicture() {
     this.selectedPicture = null;
   }
+
+  closeModal() {
+    this.dialogRef.close();
+  }
 }

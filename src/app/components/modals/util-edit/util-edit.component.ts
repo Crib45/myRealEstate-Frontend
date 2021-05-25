@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-util-edit',
@@ -7,9 +9,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UtilEditComponent implements OnInit {
 
-  constructor() { }
+  advertId?: number;
+
+  constructor(
+    private dialogRef: MatDialogRef<UtilEditComponent>,
+    private _utilityService: UtilityService,
+    @Inject(MAT_DIALOG_DATA) data: any
+  ) { 
+    this.advertId = data.advertId;
+  }
 
   ngOnInit(): void {
+    if(this.advertId !== null && this.advertId !== undefined) {
+      this.getUtilsByAdvertId(this.advertId);
+    }
+  }
+
+  getUtilsByAdvertId(advertId: number) {
+    this._utilityService.getAllByAdvertId(advertId).subscribe(response => {
+
+    })
+  }
+
+  closeModal() {
+    this.dialogRef.close();
   }
 
 }

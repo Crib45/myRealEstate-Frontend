@@ -6,6 +6,7 @@ import { AdvertisementService } from 'src/app/services/advertisement.service';
 import { AdvertEditComponent } from '../modals/advert-edit/advert-edit.component';
 import { AdvertPicturesComponent } from '../modals/advert-pictures/advert-pictures.component';
 import { ConfirmationDialogComponent } from '../modals/confirmation-dialog/confirmation-dialog.component';
+import { UtilEditComponent } from '../modals/util-edit/util-edit.component';
 
 @Component({
   selector: 'app-user-adverts',
@@ -130,5 +131,14 @@ export class UserAdvertsComponent implements OnInit {
     }
     dialogConfig.minWidth = "50%";
     const dialogRef = this.dialog.open(AdvertPicturesComponent, dialogConfig);
+  }
+
+  openUtilEdit(advertisement: Advertisement) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+     advertId: advertisement.id
+    }
+    dialogConfig.minWidth = "30%";
+    const dialogRef = this.dialog.open(UtilEditComponent, dialogConfig);
   }
 }

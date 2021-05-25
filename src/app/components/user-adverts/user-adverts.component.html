@@ -40,7 +40,7 @@
                 <ng-container matColumnDef="additionalInfo">
                     <th mat-header-cell *matHeaderCellDef>Dodatan info</th>
                     <td mat-cell *matCellDef="let element">
-                        <button mat-icon-button color="primary" aria-label="Dodatne informacije">
+                        <button mat-icon-button color="primary" aria-label="Dodatne informacije" (click)="openUtilEdit(element)">
                             <mat-icon>plumbing</mat-icon>
                         </button>
                     </td>
