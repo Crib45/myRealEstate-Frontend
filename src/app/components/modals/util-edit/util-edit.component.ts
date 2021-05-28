@@ -10,6 +10,7 @@ import { UtilityService } from 'src/app/services/utility.service';
 export class UtilEditComponent implements OnInit {
 
   advertId?: number;
+  utilities: any[] = []
 
   constructor(
     private dialogRef: MatDialogRef<UtilEditComponent>,
@@ -26,8 +27,14 @@ export class UtilEditComponent implements OnInit {
   }
 
   getUtilsByAdvertId(advertId: number) {
-    this._utilityService.getAllByAdvertId(advertId).subscribe(response => {
+    this._utilityService.getAllByAdvertId(advertId).subscribe((response: any) => {
+      this.utilities = response;
+    })
+  }
 
+  save() {
+    this._utilityService.save(this.utilities).subscribe( (response: string) => {
+      this.closeModal();
     })
   }
 

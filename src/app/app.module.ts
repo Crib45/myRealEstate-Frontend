@@ -40,10 +40,13 @@ import localeSr from '@angular/common/locales/sr';
 import { ConfirmationDialogComponent } from './components/modals/confirmation-dialog/confirmation-dialog.component';
 import { AdvertPicturesComponent } from './components/modals/advert-pictures/advert-pictures.component';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AdvertisementFilterPipe } from './pipes/advertisement-filter.pipe';
-import { NgbCarouselModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarouselModule, NgbRatingModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdvertViewComponent } from './components/advert-view/advert-view.component';
 import { UtilEditComponent } from './components/modals/util-edit/util-edit.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatExpansionModule} from '@angular/material/expansion';
 registerLocaleData(localeSr);
 
 @NgModule({
@@ -91,7 +94,11 @@ registerLocaleData(localeSr);
     MatDatepickerModule,
     MatNativeDateModule,
     MatSliderModule,
+    MatCheckboxModule,
+    MatToolbarModule,
+    MatExpansionModule,
     NgbRatingModule,
+    NgbTooltipModule,
     NgbCarouselModule
   ],
   providers: [

@@ -11,6 +11,9 @@ export class UtilityService {
   constructor(private http: HttpClient) { }
 
   getAllByAdvertId(advertId: number) {
-    return this.http.get(this.url + "utilities/getAllByAdvertId/" + advertId);
+    return this.http.get(this.url + "utilityEstate/getAllByAdvertId/" + advertId);
+  }
+  save(data: any) {
+    return this.http.post(this.url + "utilityEstate/saveAll", data, { responseType: 'text' })
   }
 }

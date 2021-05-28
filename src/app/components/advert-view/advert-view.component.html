@@ -66,5 +66,13 @@
                   </mat-form-field>
             </div>
         </div>
+        <div class="row utility-container">
+            <div *ngFor="let util of utilities" [ngClass]="util.value ? 'true-util' : 'false-util'"
+            [ngbTooltip]="util.description"
+            class="col-auto d-flex flex-column align-items-center justify-content-center hover-default">
+                <b>{{util.utility?.name}}</b>
+                <mat-icon class="" >{{util.utility?.icon}}</mat-icon>
+            </div>
+        </div>
     </div>
 </div>

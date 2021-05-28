@@ -5,6 +5,7 @@ import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap/carousel/carousel';
 import { Advertisement } from 'src/app/models/Advertisement';
 import { AdvertisementPictureService } from 'src/app/services/advertisement-picture.service';
 import { AdvertisementService } from 'src/app/services/advertisement.service';
+import { UtilityService } from 'src/app/services/utility.service';
 import { ProfileEditComponent } from '../user-management/profile-edit/profile-edit.component';
 
 @Component({
@@ -20,12 +21,14 @@ export class AdvertViewComponent implements OnInit {
   private sub: any;
   advertisement: Advertisement = new Advertisement();
   pictures: any[] = [];
+  utilities: any[] = [];
 
   constructor( 
     private route: ActivatedRoute,
     private _advertisementService: AdvertisementService,
     private _advertisementPictureService: AdvertisementPictureService,
     private dialog: MatDialog,
+    private _utilityService: UtilityService
     ) { }
 
   ngOnInit(): void {
@@ -33,6 +36,7 @@ export class AdvertViewComponent implements OnInit {
       this.id = +params['id']; // (+) converts string 'id' to a number
       this.getAdvertById();
       this.getPictures();
+      this.getUtilsByAdvertId(this.id);
    });
   }
 
@@ -65,6 +69,12 @@ export class AdvertViewComponent implements OnInit {
 
   goPreviousPic() {
     this.carousel?.prev();
+  }
+
+  getUtilsByAdvertId(advertId: number) {
+    this._utilityService.getAllByAdvertId(advertId).subscribe((response: any) => {
+      this.utilities = response;
+    })
   }
 
   openUserInfo() {

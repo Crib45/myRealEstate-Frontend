@@ -1,6 +1,23 @@
 <mat-dialog-content>
-
+    <div class="container-fluid">
+        <div class="row mb-3 align-items-center" *ngFor="let util of utilities">
+            <div class="col-4 mt-1">
+                <mat-checkbox class="example-margin" [(ngModel)]="util.value">
+                    <div class="d-flex align-items-center">
+                        <mat-icon class="mr-2 icon-color">{{util?.utility?.icon}}</mat-icon>{{util?.utility?.name}}
+                    </div>
+                </mat-checkbox>
+            </div>
+            <div class="col-8">
+                <mat-form-field appearance="outline">
+                    <mat-label>Opis</mat-label>
+                    <input matInput type="text" [(ngModel)]="util.description"/>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
+<mat-dialog-actions class="d-flex justify-content-between">
+    <button mat-raised-button (click)="save()" color="primary">Sačuvaj</button>
     <button mat-raised-button mat-dialog-close (click)="closeModal()">Zatvori</button>
 </mat-dialog-actions>

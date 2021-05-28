@@ -24,3 +24,21 @@ ngb-carousel .carousel-inner {
 .description-form {
     width: 100%;
 }
+
+.utility-container mat-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+}
+
+.true-util {
+    color: rgb(80, 199, 80);
+}
+
+.false-util {
+    color: rgb(167, 58, 58);
+}
+
+.hover-default:hover {
+    cursor:default;
+}
