@@ -7,6 +7,9 @@ import { AdvertisementPictureService } from 'src/app/services/advertisement-pict
 import { AdvertisementService } from 'src/app/services/advertisement.service';
 import { UtilityService } from 'src/app/services/utility.service';
 import { ProfileEditComponent } from '../user-management/profile-edit/profile-edit.component';
+import { interval } from 'rxjs';
+import { AdvertCommentsService } from 'src/app/services/advert-comments.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-advert-view',
@@ -19,25 +22,40 @@ export class AdvertViewComponent implements OnInit {
 
   id: number | null = null;
   private sub: any;
+  private subComments: any;
   advertisement: Advertisement = new Advertisement();
   pictures: any[] = [];
   utilities: any[] = [];
+  advertComments: any = [];
+  newCommentTxt: string = '';
+
+  //1 minute interval
+  commentInterval = interval(60000);
 
   constructor( 
     private route: ActivatedRoute,
     private _advertisementService: AdvertisementService,
     private _advertisementPictureService: AdvertisementPictureService,
     private dialog: MatDialog,
-    private _utilityService: UtilityService
+    private _utilityService: UtilityService,
+    private _advertCommentsService: AdvertCommentsService,
+    public _authService: AuthService
     ) { }
 
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
-      this.getAdvertById();
-      this.getPictures();
-      this.getUtilsByAdvertId(this.id);
    });
+   if(this.id) {
+    this.getAdvertById();
+    this.getPictures();
+    this.getUtilsByAdvertId(this.id);
+    this.getAdvertComments(this.id);
+    this.subComments = this.commentInterval.subscribe(val => {
+      if(this.id)
+        this.getAdvertComments(this.id);
+    })
+   }
   }
 
   getAdvertById() {
@@ -50,6 +68,7 @@ export class AdvertViewComponent implements OnInit {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.subComments.unsubscribe();
   }
 
   getPictures(){
@@ -87,6 +106,27 @@ export class AdvertViewComponent implements OnInit {
     dialogConfig.width = "550px";
     dialogConfig.minHeight = "500px";
     const dialogRef = this.dialog.open(ProfileEditComponent, dialogConfig);
+  }
+
+  getAdvertComments(advertId:number) {
+    this._advertCommentsService.getAllByAdvertId(advertId).subscribe((response: any) => {
+      this.advertComments = response;
+    })
+  }
+
+  saveComment() {
+    if(this.newCommentTxt) {
+      let newComment = {
+        comment: this.newCommentTxt,
+        advertisement: this.advertisement
+      }
+      this._advertCommentsService.save(newComment).subscribe((response:any) => {
+        if(response == "Success" && this.id != null) {
+          this.getAdvertComments(this.id)
+          this.newCommentTxt = '';
+        }
+      })
+    }
   }
 
 }

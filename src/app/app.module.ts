@@ -47,6 +47,7 @@ import { AdvertViewComponent } from './components/advert-view/advert-view.compon
 import { UtilEditComponent } from './components/modals/util-edit/util-edit.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatExpansionModule} from '@angular/material/expansion';
+import 'hammerjs';
 registerLocaleData(localeSr);
 
 @NgModule({

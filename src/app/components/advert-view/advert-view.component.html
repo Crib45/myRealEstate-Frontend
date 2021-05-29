@@ -74,5 +74,41 @@
                 <mat-icon class="" >{{util.utility?.icon}}</mat-icon>
             </div>
         </div>
+        <div class="row mt-5">
+            <div class="col-12">
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <mat-icon class="mr-1">question_answer</mat-icon>
+                                <b>Komentari i pitanja</b>
+                            </mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <mat-card *ngIf="_authService.isLoggedIn()" class="mb-2">
+                            <mat-card-header>
+                                <mat-card-title>Novi komentar</mat-card-title>
+                                <mat-card-subtitle>Pitajte vlasnika</mat-card-subtitle>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <mat-form-field appearance="outline" class="description-form">
+                                    <!-- <mat-label>Opis oglasa</mat-label> -->
+                                    <textarea matInput placeholder="Vaš komentar ili pitanje" [(ngModel)]="newCommentTxt"></textarea>
+                                  </mat-form-field>
+                            </mat-card-content>
+                              <mat-card-actions>
+                                <button mat-flat-button color="primary" (click)="saveComment()" [disabled]="!newCommentTxt">Potvrdi</button>
+                              </mat-card-actions>
+                            </mat-card>
+                            <mat-card *ngFor="let comment of advertComments" class="mb-2">
+                                <span>{{comment.comment}}</span><br><br>
+                                <span class="small-font">
+                                    {{comment.madeBy?.firstName}} {{comment.madeBy?.lastName}} - {{comment.createdAt | date:'medium'}}
+                                </span>
+                            </mat-card>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+        </div>
     </div>
 </div>
+<div class="mt-5">&nbsp;</div>
