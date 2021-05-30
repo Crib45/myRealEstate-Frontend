@@ -47,7 +47,6 @@ export class UserAdvertsComponent implements OnInit {
   }
 
   editAdvert(advertisement: Advertisement) {
-    console.log(advertisement)
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       mode: 'edit',
@@ -124,7 +123,6 @@ export class UserAdvertsComponent implements OnInit {
   }
 
   openPictures(advertisement: Advertisement) {
-    console.log(advertisement)
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
      advertId: advertisement.id

@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit {
   }
 
   search() {
-    console.log(this.selectedCategory)
     if(this.maxSize) {
       this._subcategoryService.searchSize = this.maxSize; 
     }

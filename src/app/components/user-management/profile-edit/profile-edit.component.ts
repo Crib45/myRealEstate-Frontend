@@ -132,7 +132,6 @@ export class ProfileEditComponent implements OnInit {
       reader.onload = (_event) => {
         this.selectedPicture.picture = reader.result;
         this.pictureChanged = true;
-        console.log(this.selectedPicture)
       }
     }
   }

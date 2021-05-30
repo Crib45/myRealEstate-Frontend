@@ -1,0 +1,30 @@
+<mat-dialog-content>
+    <h4 class="font-weight-bold">Novi filter</h4>
+    <mat-form-field appearance="outline">
+        <mat-label>
+            Kategorija*
+        </mat-label>
+        <mat-select [(ngModel)] = "selectedCategory" [compareWith]="objectComparisonFunction">
+            <mat-option *ngFor="let category of categories; let i = index" [value]="category">
+                {{category.title}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field><br>
+    <mat-form-field appearance="outline">
+        <mat-label>
+           Maksimalna cena
+        </mat-label>
+        <input matInput  type="number" [(ngModel)]="maxPrice" />
+    </mat-form-field><br>
+    <mat-form-field appearance="outline">
+        <mat-label>
+           Maksimalna veličina
+        </mat-label>
+        <input matInput  type="number" [(ngModel)]="maxSize" />
+    </mat-form-field><br>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" (click)="save()" [disabled]="!selectedCategory">Potvrdi</button>
+	<button mat-raised-button mat-dialog-close tabindex="1">Zatvori</button>
+</mat-dialog-actions>
+

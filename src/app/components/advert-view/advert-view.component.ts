@@ -105,7 +105,6 @@ export class AdvertViewComponent implements OnInit {
   }
 
   openUserInfo() {
-    console.log('asd')
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       mode:'info',

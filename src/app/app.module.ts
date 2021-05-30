@@ -49,6 +49,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatExpansionModule} from '@angular/material/expansion';
 import 'hammerjs';
 import { FavoriteFiltersComponent } from './components/modals/favorite-filters/favorite-filters.component';
+import { AddFilterComponent } from './components/modals/add-filter/add-filter.component';
 registerLocaleData(localeSr);
 
 @NgModule({
@@ -70,7 +71,8 @@ registerLocaleData(localeSr);
     AdvertisementFilterPipe,
     AdvertViewComponent,
     UtilEditComponent,
-    FavoriteFiltersComponent
+    FavoriteFiltersComponent,
+    AddFilterComponent
   ],
   imports: [
     BrowserModule,

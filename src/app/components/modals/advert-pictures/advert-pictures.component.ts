@@ -44,7 +44,6 @@ export class AdvertPicturesComponent implements OnInit {
       this.pictures.forEach(element => {
         element.pictureBlob = "data:" + element.contentType +";base64,"+ element.fileData;
       });
-      console.log(this.pictures)
     })
   }
 
