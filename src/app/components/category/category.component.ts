@@ -6,6 +6,7 @@ import { AdvertisementDTO } from 'src/app/models/AdvertisementDTO';
 import { AdvertisementPictureService } from 'src/app/services/advertisement-picture.service';
 import { AdvertisementService } from 'src/app/services/advertisement.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { CategoryService } from 'src/app/services/category.service';
 import { FavoriteAdService } from 'src/app/services/favorite-ad.service';
 import { SubcategoryService } from 'src/app/services/subcategory.service';
 
@@ -41,7 +42,14 @@ export class CategoryComponent implements OnInit {
     if (!this.categoryTitle || this.categoryTitle == "") {
       this.router.navigate(['']);
     }
-    else this.getSubCategoriesByCategoryTitle(this.categoryTitle);
+    else {
+      this.getSubCategoriesByCategoryTitle(this.categoryTitle);
+      this.maxPrice = this._subcategoryService.searchPrice;
+      this.maxSize = this._subcategoryService.searchSize;
+      this._subcategoryService.searchPrice = 0;
+      this._subcategoryService.searchSize = 0;
+    }
+     
   }
 
   /**

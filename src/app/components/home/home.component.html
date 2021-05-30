@@ -7,25 +7,25 @@
                         <mat-label>
                             Kategorija
                         </mat-label>
-                        <mat-select>
-                            <mat-option *ngFor="let category of categories; let i = index" [value]="category.id">
+                        <mat-select [(ngModel)] = "selectedCategory" [compareWith]="objectComparisonFunction">
+                            <mat-option *ngFor="let category of categories; let i = index" [value]="category">
                                 {{category.title}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field class="ml-4" appearance="outline">
                         <mat-label>
-                            Cena
+                           Maksimalna cena
                         </mat-label>
-                        <input matInput />
+                        <input matInput  type="number" [(ngModel)]="maxPrice" />
                     </mat-form-field>
                     <mat-form-field class="ml-4" appearance="outline">
                         <mat-label>
-                            Veličina
+                            Maksimalna veličina
                         </mat-label>
-                        <input matInput />
+                        <input matInput type="number" [(ngModel)]="maxSize" />
                     </mat-form-field>
-                        <button mat-stroked-button color="primary" class="ml-4">
+                        <button mat-stroked-button color="primary" class="ml-4" (click)="search()" [disabled]="!selectedCategory">
                             Pretraga
                             <mat-icon class="ml-3">
                                 search

@@ -9,13 +9,19 @@
         <button mat-raised-button color="primary" routerLink="/my-adverts" class="mr-2">
             Vaši oglasi
             <mat-icon>
-                photo_library
+                receipt_long
             </mat-icon>
         </button>
         <button mat-raised-button color="primary" (click)="openProfile()" class="mr-2">
             Vaš profil
             <mat-icon>
                 account_circle
+            </mat-icon>
+        </button>
+        <button mat-raised-button color="primary" (click)="openFavsAndFilters()" class="mr-2">
+            Zapraćeni oglasi i filteri
+            <mat-icon>
+                bookmarks
             </mat-icon>
         </button>
         <button mat-raised-button color="primary" (click)="_authService.logout()">

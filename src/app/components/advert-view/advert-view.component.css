@@ -46,3 +46,7 @@ ngb-carousel .carousel-inner {
 .small-font {
     font-size: 12px;
 }
+
+.owner-comment {
+    color: blue;
+}

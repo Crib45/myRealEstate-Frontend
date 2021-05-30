@@ -8,6 +8,9 @@ export class SubcategoryService {
 
   url = "http://localhost:8080/";
 
+  searchSize: number = 0;
+  searchPrice: number = 0;
+
   constructor(private http: HttpClient) { }
 
   getSubCategoriesByCategoryTitle(categoryTitle:string) {

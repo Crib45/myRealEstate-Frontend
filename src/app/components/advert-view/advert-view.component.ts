@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap/carousel/carousel';
 import { Advertisement } from 'src/app/models/Advertisement';
 import { AdvertisementPictureService } from 'src/app/services/advertisement-picture.service';
@@ -10,6 +10,7 @@ import { ProfileEditComponent } from '../user-management/profile-edit/profile-ed
 import { interval } from 'rxjs';
 import { AdvertCommentsService } from 'src/app/services/advert-comments.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { FavoriteAdService } from 'src/app/services/favorite-ad.service';
 
 @Component({
   selector: 'app-advert-view',
@@ -28,7 +29,8 @@ export class AdvertViewComponent implements OnInit {
   utilities: any[] = [];
   advertComments: any = [];
   newCommentTxt: string = '';
-
+  //Equal to null if advert isnt favorite and is favorite object if it is
+  isFavorite: any = null;
   //1 minute interval
   commentInterval = interval(60000);
 
@@ -39,7 +41,9 @@ export class AdvertViewComponent implements OnInit {
     private dialog: MatDialog,
     private _utilityService: UtilityService,
     private _advertCommentsService: AdvertCommentsService,
-    public _authService: AuthService
+    public _authService: AuthService,
+    private router: Router,
+    private _favoriteAdService: FavoriteAdService
     ) { }
 
   ngOnInit(): void {
@@ -48,9 +52,6 @@ export class AdvertViewComponent implements OnInit {
    });
    if(this.id) {
     this.getAdvertById();
-    this.getPictures();
-    this.getUtilsByAdvertId(this.id);
-    this.getAdvertComments(this.id);
     this.subComments = this.commentInterval.subscribe(val => {
       if(this.id)
         this.getAdvertComments(this.id);
@@ -61,7 +62,14 @@ export class AdvertViewComponent implements OnInit {
   getAdvertById() {
     if(this.id !== null){
       this._advertisementService.getById(this.id).subscribe((response: any) => {
-        this.advertisement = response;
+        if(response && this.id !== null){
+          this.advertisement = response;
+          this.getIsFavorite();
+          this.getPictures();
+          this.getUtilsByAdvertId(this.id);
+          this.getAdvertComments(this.id);
+        }
+        else this.router.navigate(['']);
       })
     }
   }
@@ -128,5 +136,40 @@ export class AdvertViewComponent implements OnInit {
       })
     }
   }
+
+   /**
+   * Sets advert as favorite
+   * @param advertisementDTO 
+   */
+    setFavorite(advertisement: Advertisement) {
+      if(!this._authService.isLoggedIn()) {
+        this.router.navigate(['/login']);
+      }
+      else {
+        this._favoriteAdService.saveFavorite(advertisement).subscribe(response => {
+          this.isFavorite = response;
+        })
+      }
+    }
+  
+    /**
+     * Removes FavoriteAd by id
+     * @param advertisementDTO 
+     */
+    removeFavorite(favoriteAd: any) {
+      if(favoriteAd.id)
+      this._favoriteAdService.delete(favoriteAd.id).subscribe(response => {
+        if(response == "Success")
+          this.isFavorite = null;
+      })
+    }
+
+    getIsFavorite() {
+      if(this.advertisement.id) {
+        this._favoriteAdService.getByAdvertIdForLogged(this.advertisement.id).subscribe((response: any) => {
+          this.isFavorite = response;
+        })
+      }
+    }
 
 }

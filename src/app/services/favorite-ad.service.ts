@@ -19,4 +19,13 @@ export class FavoriteAdService {
     return this.http.delete(this.url + "favoriteAd/" + favoriteAdId, { responseType: 'text' })
   }
 
+  getAllForLogged() {
+    return this.http.get(this.url + "favoriteAd/getAllForLogged" )
+  }
+
+  getByAdvertIdForLogged(advertId: Number) {
+    return this.http.get(this.url + "favoriteAd/getByAdvertIdForLogged/"+ advertId )
+  }
+
+
 }

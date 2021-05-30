@@ -71,10 +71,12 @@
                           Pregled oglasa
                       </button>
                       <button mat-mini-fab *ngIf="!advert.favoriteAd"
+                      ngbTooltip="Zaprati oglas"
                       aria-label="Put advert as favorite" color="primary" (click)="setFavorite(advert)">
                           <mat-icon>favorite</mat-icon>
                       </button>
                       <button mat-mini-fab *ngIf="advert.favoriteAd"
+                      ngbTooltip="Odjavi se"
                       aria-label="Put advert as favorite" color="warn" (click)="removeFavorite(advert)">
                           <mat-icon>favorite</mat-icon>
                       </button>

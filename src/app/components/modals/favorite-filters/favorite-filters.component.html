@@ -1,0 +1,34 @@
+<mat-dialog-content>
+    <mat-tab-group mat-align-tabs="center" #matTabGroup>
+        <mat-tab label="Oglasi koje pratite">
+            <table mat-table [dataSource]="favoriteAdverts" class="mt-2">
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef>Naslov</th>
+                    <td mat-cell *matCellDef="let element">
+                        <b class="hover-pointer" (click)="goToAdvert(element.advertisement.id)">{{element.advertisement?.title}}</b>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="expiresAt">
+                    <th mat-header-cell *matHeaderCellDef>Isteče datuma</th>
+                    <td mat-cell *matCellDef="let element">{{element.advertisement?.expireDate | date: 'dd/MM/yyyy'}}</td>
+                </ng-container>
+                <ng-container matColumnDef="delete">
+                    <th mat-header-cell *matHeaderCellDef>Obriši</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button color="warn" aria-label="Obriši oglas" (click)="openDeleteConfirmation(element.id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+            </table>
+        </mat-tab>
+        <mat-tab label="Vaši filteri">
+
+        </mat-tab>
+    </mat-tab-group>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+	<button mat-raised-button mat-dialog-close tabindex="1">Zatvori</button>
+</mat-dialog-actions>
