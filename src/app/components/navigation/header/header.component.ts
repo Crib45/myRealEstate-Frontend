@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { FavoriteFiltersComponent } from '../../modals/favorite-filters/favorite-filters.component';
@@ -15,6 +16,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     public _authService: AuthService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private router: Router,) { }
 
   ngOnInit(): void {
@@ -43,6 +45,14 @@ export class HeaderComponent implements OnInit {
     dialogConfig.width = "650px";
     // dialogConfig.maxHeight = "600px";
     const dialogRef = this.dialog.open(FavoriteFiltersComponent, dialogConfig);
+  }
+
+  logout(){
+    this._authService.logout();
+    this.router.navigate(['']);
+    this.snackBar.open('Uspešan logout sa sistema', '', {
+      duration: 3000,
+    });
   }
 
 }

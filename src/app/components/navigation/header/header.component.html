@@ -6,37 +6,51 @@
 
     <span class="spacer"></span>
     <div *ngIf="_authService.isLoggedIn(); else notLogged">
-        <button mat-raised-button color="primary" routerLink="/my-adverts" class="mr-2">
-            Vaši oglasi
+        <button mat-flat-button color="primary" routerLink="/chat" class="mr-2">
             <mat-icon>
-                receipt_long
+                question_answer
             </mat-icon>
+            Razgovori
         </button>
-        <button mat-raised-button color="primary" (click)="openProfile()" class="mr-2">
-            Vaš profil
+        <button mat-flat-button [matMenuTriggerFor]="menu" color="primary" class="mr-2">
             <mat-icon>
-                account_circle
+                account_box
             </mat-icon>
+            Vaši podaci
         </button>
-        <button mat-raised-button color="primary" (click)="openFavsAndFilters()" class="mr-2">
-            Zapraćeni oglasi i filteri
-            <mat-icon>
-                bookmarks
-            </mat-icon>
-        </button>
-        <button mat-raised-button color="primary" (click)="_authService.logout()">
-            Logout
-            <mat-icon>logout</mat-icon>
-        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item color="primary" routerLink="/my-adverts" class="mr-2">
+                <mat-icon>
+                    receipt_long
+                </mat-icon>
+                Oglasi
+            </button>
+            <button mat-menu-item color="primary" (click)="openProfile()" class="mr-2">
+                <mat-icon>
+                    account_circle
+                </mat-icon>
+                Profil
+            </button>
+            <button mat-menu-item color="primary" (click)="openFavsAndFilters()" class="mr-2">
+                <mat-icon>
+                    bookmarks
+                </mat-icon>
+                Zapraćeni oglasi i filteri
+            </button>
+            <button mat-menu-item color="primary" (click)="logout()">
+                <mat-icon>logout</mat-icon>
+                Logout
+            </button>
+        </mat-menu>
     </div>
     <ng-template #notLogged>
-        <button mat-raised-button color="primary" class="login-btn mr-2" routerLink="/login">
-            Login
+        <button mat-flat-button color="primary" class="login-btn mr-2" routerLink="/login">
             <mat-icon>person</mat-icon>
+            Login
         </button>
-        <button mat-raised-button color="primary" routerLink="/registration">
-            Registracija
+        <button mat-flat-button color="primary" routerLink="/registration">
             <mat-icon>person_add</mat-icon>
+            Registracija
         </button>
     </ng-template>
 </mat-toolbar>

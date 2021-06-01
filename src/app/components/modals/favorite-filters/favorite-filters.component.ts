@@ -111,6 +111,8 @@ export class FavoriteFiltersComponent implements OnInit {
   goToSearch(savedFilter: any) {
     this._subcategoryService.searchSize = savedFilter.maxSize; 
     this._subcategoryService.searchPrice = savedFilter.maxPrice; 
+    this._savedFilterService.save(savedFilter).subscribe(response => {
+    })
     if(savedFilter.category) {
       this.router.navigate(['/category', savedFilter.category.title]);
     }

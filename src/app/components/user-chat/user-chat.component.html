@@ -1,0 +1,43 @@
+<div class="chat-wrapper mt-5 mb-5">
+    <mat-sidenav-container class="mat-elevation-z8">
+        <mat-sidenav mode="side" opened [disableClose]="true">
+            <p class="hover-pointer" (click)="selectChat(messagesArray)"
+            [ngClass]="{'border-bottom border-white': (sendTo && (messagesArray[0]?.sender?.id == sendTo?.id || messagesArray[0]?.receiver?.id == sendTo?.id)) }"
+            *ngFor="let messagesArray of messagesByUsers">
+                <ng-container *ngIf="messagesArray[0].sender.id !== loggedUser.id">
+                    {{messagesArray[0].sender.firstName}} {{messagesArray[0].sender.lastName}}
+                </ng-container>
+                <ng-container *ngIf="messagesArray[0].receiver.id !== loggedUser.id">
+                    {{messagesArray[0].receiver.firstName}} {{messagesArray[0].receiver.lastName}}
+                </ng-container>
+            </p>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <div class="content mat-elevation-z8 flex-column pt-2 px-2">
+                <mat-card *ngFor="let message of selectedChat"
+                [ngClass]="(message.sender?.id == loggedUser.id) ? 'mr-auto' : 'ml-auto logged-receiver'"
+                 class="mb-2">
+                    <span>{{message.content}}</span><br><br>
+                    <span class="small-font">
+                        {{message.createdAt | date:'medium'}}
+                    </span>
+                </mat-card>
+                <mat-card class="mb-3 new-message-form mt-auto" *ngIf="sendTo">
+                    <mat-card-content>
+                        <mat-form-field appearance="outline">
+                            <!-- <mat-label>Opis oglasa</mat-label> -->
+                            <textarea matInput placeholder="Poruka"
+                                [(ngModel)]="newMessage"></textarea>
+                        </mat-form-field>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-flat-button color="primary" (click)="save()"
+                            [disabled]="!newMessage">Pošalji</button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
+<div>&nbsp;</div>
+

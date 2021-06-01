@@ -60,6 +60,9 @@
             <div class="col-auto">
                 <b>{{advertisement?.estate?.size | number }}&nbsp;&#13217;</b>
             </div>
+            <div class="col-auto ml-auto">
+                <button mat-flat-button color="primary" (click)="contactOwner()">Kontakt vlasnika</button>
+            </div>
         </div>
         <div class="row mt-1">
             <div class="col-1">
@@ -115,8 +118,7 @@
                         <mat-card *ngFor="let comment of advertComments" class="mb-2">
                             <span>{{comment.comment}}</span><br><br>
                             <span class="small-font">
-                                {{comment.madeBy?.firstName}} {{comment.madeBy?.lastName}} - {{comment.createdAt |
-                                date:'medium'}}
+                                {{comment.madeBy?.firstName}} {{comment.madeBy?.lastName}} - {{comment.createdAt | date:'medium'}}
                                 &nbsp;<span class="owner-comment"
                                     *ngIf="advertisement?.owner?.id == comment.madeBy?.id">vlasnik oglasa</span>
                             </span>

@@ -11,6 +11,7 @@ import { interval } from 'rxjs';
 import { AdvertCommentsService } from 'src/app/services/advert-comments.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FavoriteAdService } from 'src/app/services/favorite-ad.service';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-advert-view',
@@ -43,7 +44,8 @@ export class AdvertViewComponent implements OnInit {
     private _advertCommentsService: AdvertCommentsService,
     public _authService: AuthService,
     private router: Router,
-    private _favoriteAdService: FavoriteAdService
+    private _favoriteAdService: FavoriteAdService,
+    private _messageService: MessageService
     ) { }
 
   ngOnInit(): void {
@@ -169,6 +171,11 @@ export class AdvertViewComponent implements OnInit {
           this.isFavorite = response;
         })
       }
+    }
+
+    contactOwner() {
+      this._messageService.sendTo = this.advertisement.owner;
+      this.router.navigate(['/chat']);
     }
 
 }

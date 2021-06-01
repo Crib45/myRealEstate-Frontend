@@ -45,11 +45,12 @@ import { AdvertisementFilterPipe } from './pipes/advertisement-filter.pipe';
 import { NgbCarouselModule, NgbRatingModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdvertViewComponent } from './components/advert-view/advert-view.component';
 import { UtilEditComponent } from './components/modals/util-edit/util-edit.component';
-import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatExpansionModule} from '@angular/material/expansion';
 import 'hammerjs';
 import { FavoriteFiltersComponent } from './components/modals/favorite-filters/favorite-filters.component';
 import { AddFilterComponent } from './components/modals/add-filter/add-filter.component';
+import {MatMenuModule} from '@angular/material/menu';
+import { UserChatComponent } from './components/user-chat/user-chat.component';
 registerLocaleData(localeSr);
 
 @NgModule({
@@ -72,7 +73,8 @@ registerLocaleData(localeSr);
     AdvertViewComponent,
     UtilEditComponent,
     FavoriteFiltersComponent,
-    AddFilterComponent
+    AddFilterComponent,
+    UserChatComponent
   ],
   imports: [
     BrowserModule,
@@ -102,6 +104,7 @@ registerLocaleData(localeSr);
     MatCheckboxModule,
     MatToolbarModule,
     MatExpansionModule,
+    MatMenuModule,
     NgbRatingModule,
     NgbTooltipModule,
     NgbCarouselModule

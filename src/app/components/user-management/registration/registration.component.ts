@@ -74,8 +74,6 @@ export class RegistrationComponent implements OnInit {
     this._userService.register(user).subscribe(response => {
       if(response == "Success") {
         this.openSnackBar("Uspešna registracija", "Zatvori");
-        this._userService.getLoggedUser().subscribe(response => {
-        })
         this.router.navigate(['']);
       }
     })

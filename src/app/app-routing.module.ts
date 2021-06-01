@@ -4,6 +4,7 @@ import { AdvertViewComponent } from './components/advert-view/advert-view.compon
 import { CategoryComponent } from './components/category/category.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserAdvertsComponent } from './components/user-adverts/user-adverts.component';
+import { UserChatComponent } from './components/user-chat/user-chat.component';
 import { LoginComponent } from './components/user-management/login/login.component';
 import { ProfileEditComponent } from './components/user-management/profile-edit/profile-edit.component';
 import { RegistrationComponent } from './components/user-management/registration/registration.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'category/:title', component: CategoryComponent },
   { path: 'my-adverts', component: UserAdvertsComponent },
   { path: 'advert/:id', component: AdvertViewComponent },
+  { path: 'chat', component: UserChatComponent},
   { path: '**',   redirectTo: ''},
 ];
 

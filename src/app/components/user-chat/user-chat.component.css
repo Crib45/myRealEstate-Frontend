@@ -1,0 +1,45 @@
+.chat-wrapper {
+    width: 60%;
+    margin:auto;
+}
+mat-sidenav {
+    margin: 16px;
+    width: 200px;
+    border-right: none;
+    background: #673AB7;
+    color: white;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+}
+
+.content {
+    min-height: calc(100vh - 233px);
+    border-radius: 10px;
+    margin: 16px;
+    margin-left: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* font-size: 2rem; */
+    /* color: lightgray; */
+}
+
+mat-sidenav-container {
+    min-height: calc(100vh - 200px);
+}
+
+.new-message-form {
+    width: 100%;
+}
+.new-message-form mat-form-field {
+    width: 100%;
+}
+
+.small-font {
+    font-size: 12px;
+}
+
+.logged-receiver {
+    background-color: #cfbbf3;
+}
