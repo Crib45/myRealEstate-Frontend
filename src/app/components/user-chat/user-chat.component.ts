@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { interval } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { MessageService } from 'src/app/services/message.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -15,8 +17,11 @@ export class UserChatComponent implements OnInit {
 
   newMessage: String = '';
   sendTo: any = null;
+  interval = interval(60000);
+  private chatSub: any;
 
   constructor(private _messageService: MessageService,
+              private _authService: AuthService,
               private _userService: UserService) { }
 
   messages: any[] = [];
@@ -28,10 +33,18 @@ export class UserChatComponent implements OnInit {
     this.sendTo = this._messageService.sendTo;
     this._messageService.sendTo = null;
     this.getLoggedUser();
+    this.chatSub = this.interval.subscribe(val => {
+      this.getMessages();
+    })
+  }
+
+  ngOnDestroy() {
+    this.chatSub.unsubscribe();
   }
 
 
   getMessages() {
+    if(this._authService.isLoggedIn())
     this._messageService.getAllForLogged().subscribe((response: any) => {
       this.sortMessagesByUsers(response);
     })

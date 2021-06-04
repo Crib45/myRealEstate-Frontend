@@ -6,11 +6,15 @@
 
     <span class="spacer"></span>
     <div *ngIf="_authService.isLoggedIn(); else notLogged">
+        <button mat-flat-button color="primary" (click)="openNotifications()" class="mr-2">
+            <mat-icon [matBadge]="numOfNotifications" matBadgeColor="warn" ngbTooltip="Obaveštenja">
+                notifications
+            </mat-icon>
+        </button>
         <button mat-flat-button color="primary" routerLink="/chat" class="mr-2">
-            <mat-icon>
+            <mat-icon [matBadge]="numOfNotSeenMsgs" matBadgeColor="warn" ngbTooltip="Poruke">
                 question_answer
             </mat-icon>
-            Razgovori
         </button>
         <button mat-flat-button [matMenuTriggerFor]="menu" color="primary" class="mr-2">
             <mat-icon>

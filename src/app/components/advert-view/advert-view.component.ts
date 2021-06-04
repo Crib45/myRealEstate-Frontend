@@ -12,6 +12,7 @@ import { AdvertCommentsService } from 'src/app/services/advert-comments.service'
 import { AuthService } from 'src/app/services/auth.service';
 import { FavoriteAdService } from 'src/app/services/favorite-ad.service';
 import { MessageService } from 'src/app/services/message.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-advert-view',
@@ -34,6 +35,7 @@ export class AdvertViewComponent implements OnInit {
   isFavorite: any = null;
   //1 minute interval
   commentInterval = interval(60000);
+  loggedUser: any;
 
   constructor( 
     private route: ActivatedRoute,
@@ -45,7 +47,8 @@ export class AdvertViewComponent implements OnInit {
     public _authService: AuthService,
     private router: Router,
     private _favoriteAdService: FavoriteAdService,
-    private _messageService: MessageService
+    private _messageService: MessageService,
+    private _userService: UserService
     ) { }
 
   ngOnInit(): void {
@@ -70,6 +73,7 @@ export class AdvertViewComponent implements OnInit {
           this.getPictures();
           this.getUtilsByAdvertId(this.id);
           this.getAdvertComments(this.id);
+          this.updateCommentsCheckedAt();
         }
         else this.router.navigate(['']);
       })
@@ -176,6 +180,20 @@ export class AdvertViewComponent implements OnInit {
     contactOwner() {
       this._messageService.sendTo = this.advertisement.owner;
       this.router.navigate(['/chat']);
+    }
+
+    getLoggedUser(){
+      this._userService.getLoggedUser().subscribe((response:any)=>{
+        this.loggedUser = response;
+        if(this.loggedUser.id == this.advertisement.owner.id){
+          this.updateCommentsCheckedAt();
+        }
+      })
+    }
+
+    //Updates commentsCheckedAt date
+    updateCommentsCheckedAt() {
+      this._advertisementService.updateCommentsCheckedAt(this.advertisement).subscribe(response =>{});
     }
 
 }

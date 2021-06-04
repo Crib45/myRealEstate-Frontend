@@ -51,6 +51,8 @@ import { FavoriteFiltersComponent } from './components/modals/favorite-filters/f
 import { AddFilterComponent } from './components/modals/add-filter/add-filter.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { UserChatComponent } from './components/user-chat/user-chat.component';
+import {MatBadgeModule} from '@angular/material/badge';
+import { NotificationsComponent } from './components/modals/notifications/notifications.component';
 registerLocaleData(localeSr);
 
 @NgModule({
@@ -74,7 +76,8 @@ registerLocaleData(localeSr);
     UtilEditComponent,
     FavoriteFiltersComponent,
     AddFilterComponent,
-    UserChatComponent
+    UserChatComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
@@ -104,6 +107,7 @@ registerLocaleData(localeSr);
     MatCheckboxModule,
     MatToolbarModule,
     MatExpansionModule,
+    MatBadgeModule,
     MatMenuModule,
     NgbRatingModule,
     NgbTooltipModule,

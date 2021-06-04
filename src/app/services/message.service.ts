@@ -23,4 +23,8 @@ export class MessageService {
   markAsSeen(messages:any) {
     return this.http.put(this.url + "messages/markAsSeen", messages, { responseType: 'text' })
   }
+
+  getNotSeenNum() {
+    return this.http.get(this.url + "messages/getNotSeenNum", { responseType: 'text' } )
+  }
 }

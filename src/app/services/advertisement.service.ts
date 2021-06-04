@@ -24,6 +24,10 @@ export class AdvertisementService {
     return this.http.put(this.url + "advertisement/publish/"+id,{});
   }
 
+  updateCommentsCheckedAt(advertisement:any) {
+    return this.http.put(this.url + "advertisement/updateCommentsCheckedAt", advertisement);
+  }
+
   getAllByOwned() {
     return this.http.get(this.url + "advertisement/getAllByLogged");
   }
