@@ -44,6 +44,7 @@ export class ProfileEditComponent implements OnInit {
     this.getAllCities();
     if(this.mode == 'edit') {
       this.getLogged();
+      this.updateSeenComments();
     }
     else if(this.mode =='info' && this.userId !== undefined && this.userId !== null) {
       this.getById(this.userId);
@@ -145,6 +146,11 @@ export class ProfileEditComponent implements OnInit {
     this._profileCommentsService.save(comment).subscribe((response: any) => {
       this.comments = response;
       this.averageRating = this.getAverageRating();
+      this.currentRate = 0;
+      this.currentComment = "";
+      this.snackBar.open('Uspešno postavljen komentar', undefined, {
+        duration: 2000,
+      });
     })
   }
 
@@ -165,5 +171,9 @@ export class ProfileEditComponent implements OnInit {
       }
     });
     return (Math.round((gradeTotal/amountOfGrades) * 100) / 100);
+  }
+
+  updateSeenComments() {
+    this._profileCommentsService.updateSeenComments().subscribe((response:any)=> {})
   }
 }

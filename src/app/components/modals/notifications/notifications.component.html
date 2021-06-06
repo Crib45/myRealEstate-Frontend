@@ -1,2 +1,32 @@
+<h2 mat-dialog-title>
+    <mat-icon>
+        notifications
+    </mat-icon>
+    Obaveštenja
+</h2>
 <mat-dialog-content>
+    <mat-card class="m-1 mb-2 hover-pointer" *ngFor="let notification of notifications" (click)="openNotification(notification)">
+        <b>{{notification.message}}</b><br>
+        <ng-container *ngIf="notification.notificationType == 'SavedFilter'">
+            <div class="d-flex justify-content-between" *ngIf="notification.savedFilter?.category?.title">
+                <span>Kategorija:&nbsp;</span><span>{{notification.savedFilter?.category?.title}}<br></span>
+            </div>
+            <div class="d-flex justify-content-between" *ngIf="notification.savedFilter?.maxSize">
+                <span>Maksimalna veličina:&nbsp;</span><span>{{notification.savedFilter?.maxSize| number }}&nbsp;&#13217;<br></span>
+            </div>
+            <div class="d-flex justify-content-between" *ngIf="notification.savedFilter?.maxPrice">
+                <span>Maksimalna cena:&nbsp;</span><span>{{notification.savedFilter?.maxPrice | currency:'EUR':'symbol' }}<br></span>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="notification.notificationType == 'OwnedAdvert' || notification.notificationType == 'FavoriteAd'">
+            <div class="d-flex justify-content-between">
+                <span>Naziv oglasa:&nbsp;</span>
+                <span *ngIf="notification.notificationType == 'OwnedAdvert'">{{notification.advertisement?.title}}</span>
+                <span *ngIf="notification.notificationType == 'FavoriteAd'">{{notification.favoriteAd?.advertisement?.title}}</span>
+            </div>
+        </ng-container>
+    </mat-card>
 </mat-dialog-content>
+<mat-dialog-actions align="end">
+	<button mat-raised-button mat-dialog-close tabindex="1">Zatvori</button>
+</mat-dialog-actions>

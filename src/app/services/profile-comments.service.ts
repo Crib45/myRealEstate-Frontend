@@ -17,4 +17,8 @@ export class ProfileCommentsService {
   getCommentedOn(userId: number) {
     return this.http.get(this.url + "profileComments/commentedOn/"+userId );
   }
+
+  updateSeenComments() {
+    return this.http.put(this.url + "profileComments/updateSeen", {}, { responseType: 'text' });
+  }
 }

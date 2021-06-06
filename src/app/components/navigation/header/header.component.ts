@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { interval } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { MessageService } from 'src/app/services/message.service';
+import { NotificationsService } from 'src/app/services/notifications.service';
 import { FavoriteFiltersComponent } from '../../modals/favorite-filters/favorite-filters.component';
 import { NotificationsComponent } from '../../modals/notifications/notifications.component';
 import { ProfileEditComponent } from '../../user-management/profile-edit/profile-edit.component';
@@ -26,14 +27,17 @@ export class HeaderComponent implements OnInit {
   constructor(
     public _authService: AuthService,
     private _messageService: MessageService,
+    private _notificationService: NotificationsService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private router: Router,) { }
+    private router: Router) { }
 
   ngOnInit(): void {
-    this.getNotSeenNum();
+    this.getNotSeenMessagesNumber();
+    this.getNumberOfNotifications();
     this.messageSub = this.interval.subscribe(val => {
-      this.getNotSeenNum();
+      this.getNumberOfNotifications();
+      this.getNotSeenMessagesNumber();
     })
   }
 
@@ -68,10 +72,17 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  getNotSeenNum() {
+  getNotSeenMessagesNumber() {
     if(this._authService.isLoggedIn())
     this._messageService.getNotSeenNum().subscribe((response: any) => {
       this.numOfNotSeenMsgs = response;
+    })
+  }
+
+  getNumberOfNotifications() {
+    if(this._authService.isLoggedIn())
+    this._notificationService.getNumber().subscribe((response: any) => {
+      this.numOfNotifications = response;
     })
   }
 

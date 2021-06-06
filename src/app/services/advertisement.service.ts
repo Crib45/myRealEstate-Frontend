@@ -25,7 +25,7 @@ export class AdvertisementService {
   }
 
   updateCommentsCheckedAt(advertisement:any) {
-    return this.http.put(this.url + "advertisement/updateCommentsCheckedAt", advertisement);
+    return this.http.put(this.url + "advertisement/updateCommentsCheckedAt", advertisement, { responseType: 'text' });
   }
 
   getAllByOwned() {

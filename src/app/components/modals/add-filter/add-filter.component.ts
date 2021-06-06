@@ -50,7 +50,7 @@ export class AddFilterComponent implements OnInit {
       category: this.selectedCategory
     }
     this._savedFilterService.save(newSavedFilter).subscribe(response => {
-      this.dialogRef.close();
+      this.dialogRef.close(true);
     })
   }
 

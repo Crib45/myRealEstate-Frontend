@@ -86,10 +86,12 @@ export class FavoriteFiltersComponent implements OnInit {
     dialogConfigFilter.width = "300px";
     const dialogRef = this.dialog.open(AddFilterComponent, dialogConfigFilter);
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-      this.getSavedFilters();
-      this.snackBar.open('Uspešno kreiran filter', '', {
-        duration: 3000,
-      });
+      if(confirmed) {
+        this.getSavedFilters();
+        this.snackBar.open('Uspešno kreiran filter', '', {
+          duration: 3000,
+        });
+      }
     });
   }
 

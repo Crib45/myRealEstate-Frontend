@@ -73,7 +73,7 @@ export class AdvertViewComponent implements OnInit {
           this.getPictures();
           this.getUtilsByAdvertId(this.id);
           this.getAdvertComments(this.id);
-          this.updateCommentsCheckedAt();
+          this.getLoggedUser();
         }
         else this.router.navigate(['']);
       })
@@ -191,7 +191,7 @@ export class AdvertViewComponent implements OnInit {
       })
     }
 
-    //Updates commentsCheckedAt date
+    //Updates commentsCheckedAt date for owner
     updateCommentsCheckedAt() {
       this._advertisementService.updateCommentsCheckedAt(this.advertisement).subscribe(response =>{});
     }
