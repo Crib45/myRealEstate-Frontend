@@ -7,6 +7,7 @@ import { AdvertisementPictureService } from 'src/app/services/advertisement-pict
 import { AdvertisementService } from 'src/app/services/advertisement.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CategoryService } from 'src/app/services/category.service';
+import { CityService } from 'src/app/services/city.service';
 import { FavoriteAdService } from 'src/app/services/favorite-ad.service';
 import { SubcategoryService } from 'src/app/services/subcategory.service';
 
@@ -26,6 +27,8 @@ export class CategoryComponent implements OnInit {
   minSize: number = 0;
   maxSize: number = 0;
   titleSearch: string = '';
+  cities: any[] = [];
+  selectedCity: any = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,10 +37,12 @@ export class CategoryComponent implements OnInit {
     private _advertisementService: AdvertisementService,
     private _advertPictureService: AdvertisementPictureService,
     private _favoriteAd: FavoriteAdService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _cityService: CityService,
   ) { }
 
   ngOnInit(): void {
+    this.getAllCities();
     this.setCategoryFromParam();
     if (!this.categoryTitle || this.categoryTitle == "") {
       this.router.navigate(['']);
@@ -143,5 +148,14 @@ export class CategoryComponent implements OnInit {
     this.minSize = 0;
     this.maxSize = 0;
     this.titleSearch= '';
+  }
+
+  getAllCities(): any {
+    this._cityService.getAllCities().subscribe((response: any) => {
+      this.cities = response;
+    })
+  }
+  test() {
+    console.log(this.selectedCity)
   }
 }

@@ -21,7 +21,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class AdvertViewComponent implements OnInit {
 
-  @ViewChild('carousel', {static : true}) carousel!: NgbCarousel;
+  @ViewChild('carousel', { static: true }) carousel!: NgbCarousel;
 
   id: number | null = null;
   private sub: any;
@@ -36,8 +36,9 @@ export class AdvertViewComponent implements OnInit {
   //1 minute interval
   commentInterval = interval(60000);
   loggedUser: any;
+  pricePerM2:number = 0;
 
-  constructor( 
+  constructor(
     private route: ActivatedRoute,
     private _advertisementService: AdvertisementService,
     private _advertisementPictureService: AdvertisementPictureService,
@@ -49,26 +50,28 @@ export class AdvertViewComponent implements OnInit {
     private _favoriteAdService: FavoriteAdService,
     private _messageService: MessageService,
     private _userService: UserService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
-   });
-   if(this.id) {
-    this.getAdvertById();
-    this.subComments = this.commentInterval.subscribe(val => {
-      if(this.id)
-        this.getAdvertComments(this.id);
-    })
-   }
+    });
+    if (this.id) {
+      this.getAdvertById();
+      this.subComments = this.commentInterval.subscribe(val => {
+        if (this.id)
+          this.getAdvertComments(this.id);
+      })
+    }
   }
 
   getAdvertById() {
-    if(this.id !== null){
+    if (this.id !== null) {
       this._advertisementService.getById(this.id).subscribe((response: any) => {
-        if(response && this.id !== null){
+        if (response && this.id !== null) {
           this.advertisement = response;
+          if(this.advertisement && this.advertisement.estate && this.advertisement.estate.size &&  this.advertisement.price)
+            this.pricePerM2 = (this.advertisement.price / this.advertisement.estate.size );
           this.getIsFavorite();
           this.getPictures();
           this.getUtilsByAdvertId(this.id);
@@ -85,12 +88,12 @@ export class AdvertViewComponent implements OnInit {
     this.subComments.unsubscribe();
   }
 
-  getPictures(){
-    if(this.id !== null) {
-      this._advertisementPictureService.getAllByAdvertId(this.id).subscribe((response:any) => {
+  getPictures() {
+    if (this.id !== null) {
+      this._advertisementPictureService.getAllByAdvertId(this.id).subscribe((response: any) => {
         this.pictures = response;
         this.pictures.forEach(element => {
-          element.pictureBlob = "data:" + element.contentType +";base64,"+ element.fileData;
+          element.pictureBlob = "data:" + element.contentType + ";base64," + element.fileData;
         });
       })
     }
@@ -113,7 +116,7 @@ export class AdvertViewComponent implements OnInit {
   openUserInfo() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
-      mode:'info',
+      mode: 'info',
       userId: this.advertisement.owner.id
     }
     dialogConfig.width = "550px";
@@ -121,20 +124,20 @@ export class AdvertViewComponent implements OnInit {
     const dialogRef = this.dialog.open(ProfileEditComponent, dialogConfig);
   }
 
-  getAdvertComments(advertId:number) {
+  getAdvertComments(advertId: number) {
     this._advertCommentsService.getAllByAdvertId(advertId).subscribe((response: any) => {
       this.advertComments = response;
     })
   }
 
   saveComment() {
-    if(this.newCommentTxt) {
+    if (this.newCommentTxt) {
       let newComment = {
         comment: this.newCommentTxt,
         advertisement: this.advertisement
       }
-      this._advertCommentsService.save(newComment).subscribe((response:any) => {
-        if(response == "Success" && this.id != null) {
+      this._advertCommentsService.save(newComment).subscribe((response: any) => {
+        if (response == "Success" && this.id != null) {
           this.getAdvertComments(this.id)
           this.newCommentTxt = '';
         }
@@ -142,58 +145,59 @@ export class AdvertViewComponent implements OnInit {
     }
   }
 
-   /**
-   * Sets advert as favorite
-   * @param advertisementDTO 
-   */
-    setFavorite(advertisement: Advertisement) {
-      if(!this._authService.isLoggedIn()) {
-        this.router.navigate(['/login']);
-      }
-      else {
-        this._favoriteAdService.saveFavorite(advertisement).subscribe(response => {
-          this.isFavorite = response;
-        })
-      }
+  /**
+  * Sets advert as favorite
+  * @param advertisementDTO 
+  */
+  setFavorite(advertisement: Advertisement) {
+    if (!this._authService.isLoggedIn()) {
+      this.router.navigate(['/login']);
     }
-  
-    /**
-     * Removes FavoriteAd by id
-     * @param advertisementDTO 
-     */
-    removeFavorite(favoriteAd: any) {
-      if(favoriteAd.id)
-      this._favoriteAdService.delete(favoriteAd.id).subscribe(response => {
-        if(response == "Success")
-          this.isFavorite = null;
+    else {
+      this._favoriteAdService.saveFavorite(advertisement).subscribe(response => {
+        this.isFavorite = response;
       })
     }
+  }
 
-    getIsFavorite() {
-      if(this.advertisement.id) {
-        this._favoriteAdService.getByAdvertIdForLogged(this.advertisement.id).subscribe((response: any) => {
-          this.isFavorite = response;
-        })
-      }
+  /**
+   * Removes FavoriteAd by id
+   * @param advertisementDTO 
+   */
+  removeFavorite(favoriteAd: any) {
+    if (favoriteAd.id)
+      this._favoriteAdService.delete(favoriteAd.id).subscribe(response => {
+        if (response == "Success")
+          this.isFavorite = null;
+      })
+  }
+
+  getIsFavorite() {
+    if (this.advertisement.id && this._authService.isLoggedIn()) {
+      this._favoriteAdService.getByAdvertIdForLogged(this.advertisement.id).subscribe((response: any) => {
+        this.isFavorite = response;
+      })
     }
+  }
 
-    contactOwner() {
-      this._messageService.sendTo = this.advertisement.owner;
-      this.router.navigate(['/chat']);
-    }
+  contactOwner() {
+    this._messageService.sendTo = this.advertisement.owner;
+    this.router.navigate(['/chat']);
+  }
 
-    getLoggedUser(){
-      this._userService.getLoggedUser().subscribe((response:any)=>{
+  getLoggedUser() {
+    if (this._authService.isLoggedIn())
+      this._userService.getLoggedUser().subscribe((response: any) => {
         this.loggedUser = response;
-        if(this.loggedUser.id == this.advertisement.owner.id){
+        if (this.loggedUser.id == this.advertisement.owner.id) {
           this.updateCommentsCheckedAt();
         }
       })
-    }
+  }
 
-    //Updates commentsCheckedAt date for owner
-    updateCommentsCheckedAt() {
-      this._advertisementService.updateCommentsCheckedAt(this.advertisement).subscribe(response =>{});
-    }
+  //Updates commentsCheckedAt date for owner
+  updateCommentsCheckedAt() {
+    this._advertisementService.updateCommentsCheckedAt(this.advertisement).subscribe(response => { });
+  }
 
 }

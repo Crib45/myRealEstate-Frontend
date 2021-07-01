@@ -1,9 +1,16 @@
 .registration-wrapper {
     width: 50%;
+    background-image: url("/../../assets/New-York-City-Wallpaper.jpg");
+}
+
+.registration-form {
+    width: 60%;
+    background-color:rgb(255,255,255,0.9);
+    border-radius: 15px;
 }
 
 mat-form-field, .mat-raised-button {
-    width: 50%;
+    width: 90%;
     margin-left: auto;
     margin-right: auto;
 }
