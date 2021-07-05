@@ -22,7 +22,7 @@
                 </button>
                 <button mat-raised-button class="my-2" (click)="makePrimary(selectedPicture.pictureId)" 
                 *ngIf="selectedPicture?.pictureId && !selectedPicture?.primaryPic">
-                    Stavi kao glavnu sliku
+                    Postavi kao glavnu sliku
                 </button>
                 <button mat-raised-button class="my-2" (click)="deletePicture()" *ngIf="selectedPicture?.picture">
                     Obriši

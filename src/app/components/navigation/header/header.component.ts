@@ -25,9 +25,9 @@ export class HeaderComponent implements OnInit {
   private notificationSub: any;
 
   constructor(
-    public _authService: AuthService,
-    private _messageService: MessageService,
-    private _notificationService: NotificationsService,
+    public authService: AuthService,
+    private messageService: MessageService,
+    private notificationService: NotificationsService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router) { }
@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(){
-    this._authService.logout();
+    this.authService.logout();
     this.router.navigate(['']);
     this.snackBar.open('Uspešan logout sa sistema', '', {
       duration: 3000,
@@ -73,15 +73,15 @@ export class HeaderComponent implements OnInit {
   }
 
   getNotSeenMessagesNumber() {
-    if(this._authService.isLoggedIn())
-    this._messageService.getNotSeenNum().subscribe((response: any) => {
+    if(this.authService.isLoggedIn())
+    this.messageService.getNotSeenNum().subscribe((response: any) => {
       this.numOfNotSeenMsgs = response;
     })
   }
 
   getNumberOfNotifications() {
-    if(this._authService.isLoggedIn())
-    this._notificationService.getNumber().subscribe((response: any) => {
+    if(this.authService.isLoggedIn())
+    this.notificationService.getNumber().subscribe((response: any) => {
       this.numOfNotifications = response;
     })
   }

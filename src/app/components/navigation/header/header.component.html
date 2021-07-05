@@ -5,7 +5,7 @@
     </ng-container>
 
     <span class="spacer"></span>
-    <div *ngIf="_authService.isLoggedIn(); else notLogged">
+    <div *ngIf="authService.isLoggedIn(); else notLogged">
         <button mat-flat-button color="primary" (click)="openNotifications()" class="mr-2">
             <mat-icon [matBadge]="numOfNotifications" matBadgeColor="warn" ngbTooltip="Obaveštenja">
                 notifications
@@ -39,7 +39,7 @@
                 <mat-icon>
                     bookmarks
                 </mat-icon>
-                Zapraćeni oglasi i filteri
+                Praćeni oglasi i filteri
             </button>
             <button mat-menu-item color="primary" (click)="logout()">
                 <mat-icon>logout</mat-icon>
